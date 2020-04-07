@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Profile View Controller-->
+        <scene sceneID="4ug-k4-4J1">
+            <objects>
+                <viewController storyboardIdentifier="ProfileViewController" id="VPq-kz-vfo" customClass="ProfileViewController" customModule="MediaFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uBF-tf-cau">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtK-b8-aPi">
+                                <rect key="frame" x="20" y="52" width="374" height="790"/>
+                                <color key="backgroundColor" red="0.094117647060000004" green="0.1450980392" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.68235294120000001" green="0.62352941179999999" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.094117647060000004" green="0.1450980392" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="V4a-wE-lxW" firstAttribute="trailing" secondItem="dtK-b8-aPi" secondAttribute="trailing" constant="20" id="3yH-oe-U6W"/>
+                            <constraint firstItem="dtK-b8-aPi" firstAttribute="leading" secondItem="V4a-wE-lxW" secondAttribute="leading" constant="20" id="5vC-wD-zCV"/>
+                            <constraint firstItem="V4a-wE-lxW" firstAttribute="bottom" secondItem="dtK-b8-aPi" secondAttribute="bottom" constant="20" id="gEf-B4-8iN"/>
+                            <constraint firstItem="dtK-b8-aPi" firstAttribute="top" secondItem="V4a-wE-lxW" secondAttribute="top" constant="8" id="o5y-ng-Ne2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="V4a-wE-lxW"/>
+                    </view>
+                    <connections>
+                        <outlet property="userTextView" destination="dtK-b8-aPi" id="41k-47-DjO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vJ1-2l-VvW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="87" y="165"/>
+        </scene>
+    </scenes>
+</document>
