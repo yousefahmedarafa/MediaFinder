@@ -9,6 +9,5 @@
 import Foundation
 
 struct UserDefaultsKeys {
-    static let isLoggedIn = "isLoggedIn"
     static let userModel = "userModel"
 }

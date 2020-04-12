@@ -7,20 +7,21 @@
 //
 
 import UIKit
-import SafariServices
-import AVKit
-import AVFoundation
-import SDWebImage
+//import SafariServices
+//import AVKit
+//import AVFoundation
+//import SDWebImage
 
 class MovieViewController: UIViewController {
     
-    var movies = [Movie]()
     var mediaArr = [Media]()
     var segmentValue = "music"
     
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var moviesTableView: UITableView!
+    @IBOutlet weak var loadingwheel: UIActivityIndicatorView!
     @IBOutlet weak var mediaTypeSegment: UISegmentedControl!
+    @IBOutlet weak var loadingView: UIView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -33,6 +34,9 @@ class MovieViewController: UIViewController {
         setNavigationBar()
         setupRightBarBtn()
         moviesTableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "MovieTableViewCell")
+        loadingView.isHidden = true
+        loadingView.layer.borderWidth = 1.7
+        loadingView.layer.borderColor = UIColor.black.cgColor
     }
     
     @IBAction func mediaTypeSegmentVlaueCanged(_ sender: UISegmentedControl) {
@@ -59,6 +63,7 @@ class MovieViewController: UIViewController {
                 print(error.localizedDescription)
             } else if let movies = movies {
                 self.mediaArr = movies
+                self.hideLoadingView()
                 if self.mediaArr.count == 0 {
                     self.alertControllerSetupFor(msg: "No Result Found")
                 }
@@ -66,6 +71,18 @@ class MovieViewController: UIViewController {
             }
         }
         
+    }
+    
+    private func startloadingView(){
+        self.loadingView.isHidden = false
+        loadingView.roundedCorner(radius: 15)
+        loadingwheel.startAnimating()
+    }
+    
+    private func hideLoadingView(){
+        self.loadingView.isHidden = true
+        self.loadingwheel.stopAnimating()
+        self.loadingwheel.isHidden = true
     }
     
     private func alertControllerSetupFor(msg: String){
@@ -76,8 +93,8 @@ class MovieViewController: UIViewController {
     }
     
     @IBAction func searchBtnPressed(_ sender: UIButton) {
+        startloadingView()
         fetchData()
-        
     }
     
 }
@@ -101,46 +118,46 @@ extension MovieViewController : UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let previewLink = mediaArr[indexPath.item].previewUrl else {return}
+//        guard let previewLink = mediaArr[indexPath.item].previewUrl else {return}
         
-        let videoURL = URL(string: previewLink)
-        let player = AVPlayer(url: videoURL!)
-        let playerViewController = AVPlayerViewController()
-        playerViewController.player = player
-        self.present(playerViewController, animated: true) {
-            playerViewController.player!.play()
-        }
-        guard let image = URL(string: mediaArr[indexPath.item].artworkUrl100) else {return}
-        let imageView = UIImageView()
-        if mediaArr[indexPath.item].getType() != MediaType.music {
-            imageView.isHidden = true
-        }
+        let mediaIndex = mediaArr[indexPath.item]
+        let player = UIStoryboard(name: Storyboard.main, bundle: nil).instantiateViewController(identifier: StoryboardID.detailed) as! MediaDetailedViewController
+        player.media = mediaIndex
+        present(player, animated: true, completion: nil)
+//        navigationController?.pushViewController(player, animated: true)
         
-//        let width = view.frame.width
-//        let height = view.frame.height
-        let width = view.safeAreaLayoutGuide.layoutFrame.width
-        let height = view.safeAreaLayoutGuide.layoutFrame.height
-        imageView.frame = CGRect(x: 0, y: 45, width: width, height: height)
-        imageView.sd_setImage(with: image)
-        shakeAnimation(imageView)
-        playerViewController.contentOverlayView?.addSubview(imageView)
         
+//        let videoURL = URL(string: previewLink)
+//        let player = AVPlayer(url: videoURL!)
+//        let playerViewController = AVPlayerViewController()
+//        playerViewController.player = player
+//        self.present(playerViewController, animated: true) {
+//            playerViewController.player!.play()
+//        }
+//        guard let image = URL(string: mediaArr[indexPath.item].artworkUrl100) else {return}
+//        let imageView = UIImageView()
+//        imageView.contentMode = UIView.ContentMode.scaleAspectFit
+//        if mediaArr[indexPath.item].getType() != MediaType.music {
+//            imageView.isHidden = true
+//        }
+//
+//        let width = view.safeAreaLayoutGuide.layoutFrame.width
+//        let height = view.safeAreaLayoutGuide.layoutFrame.height
+//        imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+//        imageView.sd_setImage(with: image)
+//        playerViewController.contentOverlayView?.addSubview(imageView)
+
     }
 }
 
 
 extension MovieViewController {
-    private func detailedViewControllerWith(index: IndexPath){
-        let detailedVC = UIStoryboard(name: Storyboard.main, bundle: nil).instantiateViewController(identifier: StoryboardID.detailed) as! MovieDetailsViewController
-        detailedVC.receviedMovie = movies[index.item]
-        navigationController?.pushViewController(detailedVC, animated: true)
-    }
     
-    private func openSafariVC(withURL link: String){
-        guard let url = URL(string: link) else { return }
-        let safariVC = SFSafariViewController(url: url)
-        present(safariVC, animated: true, completion: nil)
-    }
+//    private func openSafariVC(withURL link: String){
+//        guard let url = URL(string: link) else { return }
+//        let safariVC = SFSafariViewController(url: url)
+//        present(safariVC, animated: true, completion: nil)
+//    }
     private func setNavigationBar(){
         self.navigationItem.hidesBackButton = true
         self.navigationItem.title = "Media Finder"
@@ -163,20 +180,8 @@ extension MovieViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-    
 
 
-    func shakeAnimation(_ view: UIView) {
-        let animation = CABasicAnimation(keyPath: "position")
-        animation.duration = 0.4
-        animation.repeatCount = 2
-        animation.autoreverses = true
-        animation.isRemovedOnCompletion = true
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
-        animation.fromValue = NSValue(cgPoint: CGPoint(x: view.center.x - 7, y: view.center.y))
-        animation.toValue = NSValue(cgPoint: CGPoint(x: view.center.x + 7, y: view.center.y))
-        view.layer.add(animation, forKey: nil)
-    }
 }
 
 

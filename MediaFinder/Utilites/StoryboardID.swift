@@ -14,5 +14,6 @@ struct StoryboardID {
     static let signup = "SignupViewController"
     static let movies = "MovieViewController"
     static let profile = "ProfileViewController"
-    static let detailed = "MovieDetailsViewController"
+    static let detailed = "MediaDetailedViewController"
+    
 }
