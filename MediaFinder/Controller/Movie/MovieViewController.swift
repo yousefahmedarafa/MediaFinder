@@ -173,7 +173,7 @@ extension MovieViewController {
     }
     
     @objc func goToProfile(){
-        let profileVC = UIStoryboard(name: Storyboard.profile, bundle: nil).instantiateViewController(identifier: StoryboardID.profile) as! ProfileViewController
+        let profileVC = UIStoryboard(name: Storyboard.profile, bundle: nil).instantiateViewController(identifier: StoryboardID.profile2) as! Profile2ViewController
         navigationController?.pushViewController(profileVC, animated: true)
         }
     

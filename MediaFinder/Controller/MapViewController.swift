@@ -35,7 +35,6 @@ class MapViewController: UIViewController {
         self.delegate?.getLocation(address: addressLbl.text!)
         navigationController?.popViewController(animated: true)
     }
-    
 }
 extension MapViewController: MKMapViewDelegate , CLLocationManagerDelegate  {
     
@@ -56,7 +55,6 @@ extension MapViewController: MKMapViewDelegate , CLLocationManagerDelegate  {
                 return
             }
             guard let placemark = placemarks?.first else {
-                
                 return
             }
             let streetNumber = placemark.subThoroughfare
