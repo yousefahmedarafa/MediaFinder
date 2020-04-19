@@ -22,7 +22,7 @@ class SignupViewController: UIViewController {
     
     var imagePicker = UIImagePickerController()
     
-    let mapVC = UIStoryboard(name: Storyboard.registration, bundle: nil).instantiateViewController(identifier: StoryboardID.map) as! MapViewController
+    let mapVC = UIStoryboard(name: Storyboard.appleMaps, bundle: nil).instantiateViewController(identifier: StoryboardID.appleMap) as! AppleMapViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,7 +89,8 @@ class SignupViewController: UIViewController {
                            isLoggedIn: false)
         print(newUser.email!)
         UserDefaultsManager.shared().saveDataFor(user: newUser)
-        
+        let db = DBManager()
+        db.insertUser(user: newUser)
 //        let db = DatabaseManager()
 //        db.insertUser(user: newUser)
         
@@ -103,8 +104,10 @@ class SignupViewController: UIViewController {
     }
     
     @IBAction func addressBtnPressded(_ sender: UIButton) {
-        let mapVC = UIStoryboard(name: Storyboard.registration, bundle: nil).instantiateViewController(identifier: StoryboardID.map) as! MapViewController
-        navigationController?.pushViewController(mapVC, animated: true)
+        let mapVC = UIStoryboard(name: Storyboard.appleMaps, bundle: nil).instantiateViewController(identifier: StoryboardID.appleMap) as! AppleMapViewController
+        mapVC.modalPresentationStyle = .fullScreen
+        present(mapVC, animated: true, completion: nil)
+//        navigationController?.pushViewController(mapVC, animated: true)
     }
     
     private func alertControllerSetupFor(msg: String){

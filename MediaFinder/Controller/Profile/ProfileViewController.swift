@@ -1,5 +1,5 @@
 //
-//  Profile2ViewController.swift
+//  ProfileViewController.swift
 //  MediaFinder
 //
 //  Created by Yousef Arafa on 4/14/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Profile2ViewController: UIViewController {
+class ProfileViewController: UIViewController {
     
     
     @IBOutlet weak var backgroundImage: UIImageView!
@@ -25,10 +25,10 @@ class Profile2ViewController: UIViewController {
         setupProfileTableView()
         setdata()
         setNavigationBar()
-    }
+        setupRightBarBtn()
+    } 
 }
-
-extension Profile2ViewController {
+extension ProfileViewController {
     
     func setdata(){
         
@@ -38,7 +38,7 @@ extension Profile2ViewController {
         guard let email = receivedUser.email else {return}
         guard let phone = receivedUser.phone else {return}
         guard let address = receivedUser.address else {return}
-        guard let pass = receivedUser.password else {return}
+        let password = String(receivedUser.password.map { _ in return "•" })
         let gender = receivedUser.gender.rawValue
         profileData += [
             Profile(item: "Name", detail: name),
@@ -46,7 +46,7 @@ extension Profile2ViewController {
             Profile(item: "Phone", detail: phone),
             Profile(item: "Address", detail: address),
             Profile(item: "Gender", detail: gender),
-            Profile(item: "Password", detail: pass)]
+            Profile(item: "Password", detail: password)]
     }
     
     private func setupProfileTableView(){
@@ -60,9 +60,22 @@ extension Profile2ViewController {
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.mainBlueColor]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
     }
+    
+    private func setupRightBarBtn(){
+        let menuButton = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(ProfileViewController.logout))
+        self.navigationItem.rightBarButtonItem  = menuButton
+    }
+    
+    @objc func logout(){
+        receivedUser.isLoggedIn = false
+        UserDefaultsManager.shared().saveDataFor(user: receivedUser)
+        
+        let signinVC = UIStoryboard(name: Storyboard.registration, bundle: nil).instantiateViewController(identifier: StoryboardID.signIn) as! SigninViewController
+        navigationController?.pushViewController(signinVC, animated: true)
+    }
 }
 
-extension Profile2ViewController : UITableViewDelegate , UITableViewDataSource {
+extension ProfileViewController : UITableViewDelegate , UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.profileData.count
@@ -76,7 +89,11 @@ extension Profile2ViewController : UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileTableViewCell") as! ProfileTableViewCell
-        cell.setupCell(self.profileData[indexPath.section].detail)
+        cell.passwordBtn.isHidden = true
+        if self.profileData[indexPath.section].item == "Password" {
+            cell.passwordBtn.isHidden = false
+        }
+        cell.setupCell(self.profileData[indexPath.section])
         return cell
     }
 }

@@ -9,5 +9,7 @@ target 'MediaFinder' do
   pod 'Alamofire'
   pod 'SDWebImage'
   pod 'IQKeyboardManagerSwift'
+  pod 'lottie-ios'
+  pod 'SQLite.swift'
 
 end

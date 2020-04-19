@@ -46,10 +46,16 @@ class SigninViewController: UIViewController {
         var savedUser = UserDefaultsManager.shared().getSavedData()
         savedUser.isLoggedIn = true
         UserDefaultsManager.shared().saveDataFor(user:savedUser)
+//        let db = DBManager()
+//        for user in db.selectAllUsers() {
+//            print(user.email)
+//        }
         
-//        let db = DatabaseManager()
+        
+//        guard let mail = emailTxtField.text else { return }
+//        let savedUser = db.retrieveUser(email: mail )
 //        db.user(isLoggedIn: true)
-        
+//
         if (emailTxtField.text == savedUser.email) && (passwordTxtField.text == savedUser.password){
             let profileVC = UIStoryboard(name: Storyboard.profile, bundle: nil).instantiateViewController(withIdentifier: StoryboardID.profile) as! ProfileViewController
             profileVC.receivedUser = savedUser

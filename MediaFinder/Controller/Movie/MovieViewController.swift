@@ -7,10 +7,6 @@
 //
 
 import UIKit
-//import SafariServices
-//import AVKit
-//import AVFoundation
-//import SDWebImage
 
 class MovieViewController: UIViewController {
     
@@ -70,12 +66,12 @@ class MovieViewController: UIViewController {
                 self.moviesTableView.reloadData()
             }
         }
-        
     }
     
     private func startloadingView(){
         self.loadingView.isHidden = false
         loadingView.roundedCorner(radius: 15)
+        loadingwheel.isHidden = false
         loadingwheel.startAnimating()
     }
     
@@ -95,8 +91,8 @@ class MovieViewController: UIViewController {
     @IBAction func searchBtnPressed(_ sender: UIButton) {
         startloadingView()
         fetchData()
+        moviesTableView.scrollToTop()
     }
-    
 }
 extension MovieViewController : UITableViewDelegate , UITableViewDataSource {
     
@@ -173,18 +169,30 @@ extension MovieViewController {
     }
     
     @objc func goToProfile(){
-        let profileVC = UIStoryboard(name: Storyboard.profile, bundle: nil).instantiateViewController(identifier: StoryboardID.profile2) as! Profile2ViewController
+        let profileVC = UIStoryboard(name: Storyboard.profile, bundle: nil).instantiateViewController(identifier: StoryboardID.profile) as! ProfileViewController
         navigationController?.pushViewController(profileVC, animated: true)
         }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-
-
 }
-
-
+extension UITableView{
+    
+    func scrollToTop(){
+        
+        for index in 0...numberOfSections - 1 {
+            if numberOfSections > 0 && numberOfRows(inSection: index) > 0 {
+                scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: true)
+                break
+            }
+            if index == numberOfSections - 1 {
+                setContentOffset(.zero, animated: true)
+                break
+            }
+        }
+    }
+}
 
 
 

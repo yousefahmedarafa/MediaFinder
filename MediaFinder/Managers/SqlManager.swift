@@ -1,16 +1,16 @@
 //
-//  DataManager.swift
-//  Registration App
+//  SqlManager.swift
+//  MediaFinder
 //
-//  Created by Yousef Arafa on 2/16/20.
+//  Created by Yousef Arafa on 4/18/20.
 //  Copyright © 2020 Yousef Arafa. All rights reserved.
 //
 
 import Foundation
 import SQLite
 
-class DatabaseManager {
-
+class DBManager {
+    
     var database: Connection!
 
     let userTable = Table("users")
@@ -22,8 +22,8 @@ class DatabaseManager {
     let password = Expression<String>("password")
     let gender = Expression<String>("gender")
     let isLoggedIn = Expression<Bool>("isLoggedIn")
-
-    init() {
+    
+     init(){
         do {
             let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
             let fileUrl = documentDirectory.appendingPathComponent("users").appendingPathExtension("sqlite3")
@@ -50,8 +50,8 @@ class DatabaseManager {
             print(error)
         }
     }
-
-    func insertUser(user:User){
+    
+     func insertUser(user:User){
         let insertion = userTable.insert(self.mail <- user.email,
                                          self.name <- user.name,
                                          self.phone <- user.phone,
@@ -59,7 +59,6 @@ class DatabaseManager {
                                          self.password <- user.password,
                                          self.gender <- user.gender!.rawValue,
                                          self.isLoggedIn <- user.isLoggedIn)
-
         do {
             try self.database.run(insertion)
             print("Inserted Successfully")
@@ -67,39 +66,18 @@ class DatabaseManager {
             print(error)
         }
     }
-
-    func retrieveUser(email : String) -> User {
-        var retrivedUser = User()
-        let userMail = self.userTable.filter(self.mail == email)
+    
+     func selectAll(){
         do {
-            let usersByMail = try database.prepare(userMail)
-            for user in usersByMail {
-                retrivedUser.email = user[self.mail]
-                retrivedUser.name = user[self.name]
-                retrivedUser.phone = user[self.phone]
-                retrivedUser.address = user[self.name]
-                retrivedUser.password = user[self.name]
-                retrivedUser.gender = Gender(rawValue: user[self.gender])
-                retrivedUser.isLoggedIn = user[self.isLoggedIn]
+            let users = try self.database.prepare(self.userTable)
+            for user in users {
+                print("userId: \(user[self.id]), name: \(user[self.name]), email: \(user[self.mail])")
             }
-            print("Retrieved Successfully")
-        } catch {
-            print(error)
-        }
-        return retrivedUser
-    }
-
-    func user(isLoggedIn :Bool){
-        let userMail = self.userTable.filter(self.mail == mail)
-        let updateUser = userMail.update(self.isLoggedIn <- isLoggedIn)
-        do {
-            try self.database.run(updateUser)
         } catch {
             print(error)
         }
     }
-
-    func selectAll()-> [User]{
+    func selectAllUsers()->[User]{
         var allUsers = [User]()
         var newUser : User!
         do {
@@ -116,13 +94,10 @@ class DatabaseManager {
                 print("Successfully Selected")
                 
             }
-        }
-//                print("user id : \(user[self.id])\nuser mail : \(user[self.mail])\nuser password : \(user[self.password])\nuser phone : \(user[self.phone])\nuser name : \(user[self.name])")
-//            }
-            
-         catch {
+        } catch {
             print(error)
         }
-    return allUsers
-}
+        return allUsers
+    }
+    
 }

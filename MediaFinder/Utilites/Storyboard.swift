@@ -12,5 +12,6 @@ struct Storyboard {
     static let registration = "Registeration"
     static let main = "Main"
     static let profile = "Profile"
+    static let appleMaps = "AppleMaps"
 }
  

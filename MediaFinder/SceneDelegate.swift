@@ -21,11 +21,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let navigationController = UINavigationController()
         
+        
+        
         let signinVC = UIStoryboard(name: Storyboard.registration, bundle: nil).instantiateViewController(identifier: StoryboardID.signIn) as! SigninViewController
         
         let signupVC = UIStoryboard(name: Storyboard.registration, bundle: nil).instantiateViewController(identifier: StoryboardID.signup) as! SignupViewController
         
         let moviesVC = UIStoryboard(name: Storyboard.main, bundle: nil).instantiateViewController(withIdentifier: StoryboardID.movies) as! MovieViewController
+        
+        
+//        if db.selectAll().count != 0 {
+//            for user in db.selectAll() {
+//                if user.isLoggedIn == true {
+//                    navigationController.setViewControllers([moviesVC], animated: true)
+//                }else {
+//                    navigationController.setViewControllers([signinVC], animated: true)
+//                }
+//            }
+//
+//        } else {
+//            navigationController.setViewControllers([signupVC], animated: true)
+//        }
+//        self.window?.rootViewController = navigationController
         
         if UserDefaultsManager.shared().getSavedData().email != nil {
             if UserDefaultsManager.shared().getSavedData().isLoggedIn == true {
