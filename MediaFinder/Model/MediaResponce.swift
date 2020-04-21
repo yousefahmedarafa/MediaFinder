@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct MediaResponce: Decodable {
     var resultCount: Int
     var results: [Media]

@@ -10,18 +10,21 @@ import UIKit
 
 class ProfileTableViewCell: UITableViewCell {
 
+
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var dataLabel: UILabel!
+    @IBOutlet weak var itemImg: UIImageView!
+    @IBOutlet weak var itemName: UILabel!
+    @IBOutlet weak var itemDetails: UILabel!
     @IBOutlet weak var passwordBtn: UIButton!
     
-    var hiddenPassword = true
+//    var hiddenPassword = true
     
     override func awakeFromNib() {
         super.awakeFromNib()
         shadowView.dropShadow()
+        passwordBtn.isHidden = true
         passwordBtn.imageView?.contentMode = .scaleAspectFit
-        passwordBtn.setImage(UIImage(named: "hidepass"), for: .normal)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -30,13 +33,14 @@ class ProfileTableViewCell: UITableViewCell {
     
     func setupCell(_ data : Profile){
         
-        if data.item == "Password" {
-            if hiddenPassword == true {
-                dataLabel.text = String(data.detail.map { _ in return "*" })
-            }
+        if data.name == "Password" {
+            passwordBtn.isHidden = false
+            itemDetails.text = String(data.detail.map { _ in return "*" })
         }else{
-            dataLabel.text = "\(data.detail)"
+            itemDetails.text = "\(data.detail)"
         }
+        itemImg.image = UIImage(named: data.itemImg)
+        itemName.text = data.name
     }
 
     @IBAction func editBtnPressed(_ sender: UIButton) {
@@ -44,12 +48,13 @@ class ProfileTableViewCell: UITableViewCell {
     }
     
     @IBAction func passwordBtnPressed(_ sender: UIButton) {
-        passwordBtn.imageView?.contentMode = .scaleAspectFit
-        hiddenPassword = !hiddenPassword
-        if hiddenPassword {
-            passwordBtn.setImage(UIImage(named: "hidepass"), for: .normal)
-        }else{
-            passwordBtn.setImage(UIImage(named: "showpass"), for: .normal)
-        }
+        print("Show Password Btn pressed")
+//        passwordBtn.imageView?.contentMode = .scaleAspectFit
+//        hiddenPassword = !hiddenPassword
+//        if hiddenPassword {
+//            passwordBtn.setImage(UIImage(named: "hidepass"), for: .normal)
+//        }else{
+//            passwordBtn.setImage(UIImage(named: "showpass"), for: .normal)
+//        }
     }
 }

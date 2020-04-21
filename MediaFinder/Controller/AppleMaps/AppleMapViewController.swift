@@ -23,7 +23,7 @@ class AppleMapViewController: UIViewController {
     
     @IBOutlet weak var saveBtn: UIButton!
     
-    var location = ""
+//    var location = ""
     let locationManager = CLLocationManager()
     var previousLocation: CLLocation?
     var delegate : SendingAddressDelegate?
@@ -32,11 +32,14 @@ class AppleMapViewController: UIViewController {
         super.viewDidLoad()
         saveBtn.roundedCorner(radius: 12)
         checkLocationService()
+        mapView.delegate = self
+
     }
     
     @IBAction func saveBtnPressed(_ sender: UIButton) {
         self.delegate?.getLocation(address: addressLbl.text!)
         dismiss(animated: true, completion: nil)
+//        navigationController?.popViewController(animated: true)
     }
     
 
@@ -67,7 +70,7 @@ extension AppleMapViewController: MKMapViewDelegate , CLLocationManagerDelegate 
             let streetName = placemark.thoroughfare
             DispatchQueue.main.async {
                 self.addressLbl.text = "\(streetNumber ?? "") \(streetName ?? "")"
-                self.location = "\(streetNumber ?? "") \(streetName ?? "")"
+//                self.location = "\(streetNumber ?? "") \(streetName ?? "")"
             }
         }
     }

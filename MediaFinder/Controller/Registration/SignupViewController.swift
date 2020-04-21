@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import SQLite
+
+
 
 class SignupViewController: UIViewController {
     
@@ -22,22 +25,27 @@ class SignupViewController: UIViewController {
     
     var imagePicker = UIImagePickerController()
     
-    let mapVC = UIStoryboard(name: Storyboard.appleMaps, bundle: nil).instantiateViewController(identifier: StoryboardID.appleMap) as! AppleMapViewController
+//    let mapVC = UIStoryboard(name: Storyboard.appleMaps, bundle: nil).instantiateViewController(identifier: StoryboardID.appleMap) as! AppleMapViewController
+    
+    var selectedLocation = ""
+    
+    let database = DB()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
-        mapVC.delegate = self
         addressLabel.roundedCorner(radius: 5)
         signupBtn.roundedCorner(radius: 12)
         setProfileImage()
         textfieldDelegate()
         setNavigationBar()
+        DB.setupDB()
+        database.create()
     }
 
     private func setProfileImage(){
-       let circle = profileImg.frame.height/2
-        profileImg.roundedCorner(radius: circle)
+       let roundedImage = profileImg.frame.height/2
+        profileImg.roundedCorner(radius: roundedImage)
     }
     
     private func setNavigationBar(){
@@ -83,16 +91,15 @@ class SignupViewController: UIViewController {
         let newUser = User(name: nameTxtField.text!,
                            email: mailTxtField.text!,
                            password: passwordTxtField.text!,
-                           address: mapVC.location,
+                           address: selectedLocation,
                            phone: phonetxtField.text!,
                            gender: genderSwitch.isOn ? .Male : .Female,
                            isLoggedIn: false)
         print(newUser.email!)
-        UserDefaultsManager.shared().saveDataFor(user: newUser)
-        let db = DBManager()
-        db.insertUser(user: newUser)
-//        let db = DatabaseManager()
-//        db.insertUser(user: newUser)
+        
+        database.insertUser(user: newUser)
+        
+
         
         let signinVC = UIStoryboard(name: Storyboard.registration, bundle: nil).instantiateViewController(identifier: StoryboardID.signIn) as! SigninViewController
         navigationController?.pushViewController(signinVC, animated: true)
@@ -105,6 +112,7 @@ class SignupViewController: UIViewController {
     
     @IBAction func addressBtnPressded(_ sender: UIButton) {
         let mapVC = UIStoryboard(name: Storyboard.appleMaps, bundle: nil).instantiateViewController(identifier: StoryboardID.appleMap) as! AppleMapViewController
+        mapVC.delegate = self
         mapVC.modalPresentationStyle = .fullScreen
         present(mapVC, animated: true, completion: nil)
 //        navigationController?.pushViewController(mapVC, animated: true)
@@ -158,9 +166,9 @@ extension SignupViewController : UITextFieldDelegate {
 }
 
 extension SignupViewController: SendingAddressDelegate {
-
     func getLocation(address: String) {
         addressLabel.text = " \(address)"
+        selectedLocation = " \(address)"
     }
 }
 

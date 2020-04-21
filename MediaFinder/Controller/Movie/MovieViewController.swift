@@ -12,6 +12,7 @@ class MovieViewController: UIViewController {
     
     var mediaArr = [Media]()
     var segmentValue = "music"
+    let mediaDB = MoviesDB()
     
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var moviesTableView: UITableView!
@@ -33,6 +34,7 @@ class MovieViewController: UIViewController {
         loadingView.isHidden = true
         loadingView.layer.borderWidth = 1.7
         loadingView.layer.borderColor = UIColor.black.cgColor
+        MoviesDB.setupMediaDB()
     }
     
     @IBAction func mediaTypeSegmentVlaueCanged(_ sender: UISegmentedControl) {
@@ -59,6 +61,7 @@ class MovieViewController: UIViewController {
                 print(error.localizedDescription)
             } else if let movies = movies {
                 self.mediaArr = movies
+                self.mediaDB.insertMedia(mediaArr: movies)
                 self.hideLoadingView()
                 if self.mediaArr.count == 0 {
                     self.alertControllerSetupFor(msg: "No Result Found")
@@ -93,6 +96,12 @@ class MovieViewController: UIViewController {
         fetchData()
         moviesTableView.scrollToTop()
     }
+    
+    func retrievedMedia() -> [Media]{
+        let retrievedData = mediaDB.selectAllMedia()
+        mediaArr = retrievedData
+        return mediaArr
+    }
 }
 extension MovieViewController : UITableViewDelegate , UITableViewDataSource {
     
@@ -103,11 +112,13 @@ extension MovieViewController : UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return mediaArr.count
+//        return retrievedMedia().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as? MovieTableViewCell else { return UITableViewCell() }
+//        cell.configureCell(media: retrievedMedia()[indexPath.row])
         cell.configureCell(media: mediaArr[indexPath.item])
         
         return cell

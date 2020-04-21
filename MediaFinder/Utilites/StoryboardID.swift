@@ -9,7 +9,7 @@
 import Foundation
 
 struct StoryboardID {
-    static let map = "MapsViewController"
+//    static let map = "MapsViewController"
     static let appleMap = "AppleMapViewController"
     static let signIn = "SigninViewController"
     static let signup = "SignupViewController"

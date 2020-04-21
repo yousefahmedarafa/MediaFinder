@@ -43,6 +43,8 @@
 		E28D13582446464800CD9C26 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28D13572446464800CD9C26 /* ProfileViewController.swift */; };
 		E28D135A24464CF100CD9C26 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28D135924464CF100CD9C26 /* ProfileTableViewCell.swift */; };
 		E28D137F24469B4900CD9C26 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28D137E24469B4900CD9C26 /* Profile.swift */; };
+		E2C1FB09244D061900A10E3F /* DB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C1FB08244D061900A10E3F /* DB.swift */; };
+		E2C1FB0B244D154000A10E3F /* MoviesDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C1FB0A244D154000A10E3F /* MoviesDB.swift */; };
 		E5B6C028CF26866E9D4730B3 /* Pods_MediaFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F32094604D66B8CA2A4867 /* Pods_MediaFinder.framework */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +90,8 @@
 		E28D13572446464800CD9C26 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E28D135924464CF100CD9C26 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		E28D137E24469B4900CD9C26 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		E2C1FB08244D061900A10E3F /* DB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DB.swift; sourceTree = "<group>"; };
+		E2C1FB0A244D154000A10E3F /* MoviesDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesDB.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +237,8 @@
 				E252CEAB2438E5450087472D /* UserDefaultsManager.swift */,
 				E252CEAC2438E5450087472D /* DatabaseManager.swift */,
 				E2583943244B8EFB00A5A78E /* SqlManager.swift */,
+				E2C1FB08244D061900A10E3F /* DB.swift */,
+				E2C1FB0A244D154000A10E3F /* MoviesDB.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -402,6 +408,7 @@
 			files = (
 				E252CEC12438E5630087472D /* Colors.swift in Sources */,
 				E252CEAE2438E5450087472D /* DatabaseManager.swift in Sources */,
+				E2C1FB0B244D154000A10E3F /* MoviesDB.swift in Sources */,
 				E252CEA52438E5330087472D /* MovieTableViewCell.swift in Sources */,
 				E28D137F24469B4900CD9C26 /* Profile.swift in Sources */,
 				E252CEA32438E5330087472D /* MovieViewController.swift in Sources */,
@@ -413,6 +420,7 @@
 				E252CEBF2438E5630087472D /* Storyboard.swift in Sources */,
 				E252CEA62438E5330087472D /* SigninViewController.swift in Sources */,
 				E252CEA02438E5330087472D /* SignupViewController.swift in Sources */,
+				E2C1FB09244D061900A10E3F /* DB.swift in Sources */,
 				E252CEC02438E5630087472D /* StoryboardID.swift in Sources */,
 				E252CEAD2438E5450087472D /* UserDefaultsManager.swift in Sources */,
 				E252CE762438E45C0087472D /* SceneDelegate.swift in Sources */,

@@ -1,17 +1,17 @@
 //
-//  SqlManager.swift
+//  DB.swift
 //  MediaFinder
 //
-//  Created by Yousef Arafa on 4/18/20.
+//  Created by Yousef Arafa on 4/20/20.
 //  Copyright © 2020 Yousef Arafa. All rights reserved.
 //
 
 import Foundation
 import SQLite
 
-class DBManager {
-    
-    var database: Connection!
+var database: Connection!
+
+struct DB {
 
     let userTable = Table("users")
     let id = Expression<Int>("id")
@@ -23,36 +23,38 @@ class DBManager {
     let gender = Expression<String>("gender")
     let isLoggedIn = Expression<Bool>("isLoggedIn")
     
-     init(){
+    static func setupDB(){
         do {
             let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
             let fileUrl = documentDirectory.appendingPathComponent("users").appendingPathExtension("sqlite3")
-            let database = try Connection(fileUrl.path)
-            self.database = database
-        } catch {
-            print(error)
-        }
-        let createTable = self.userTable.create (ifNotExists: true){ (table) in
-            table.column(self.id, primaryKey: true)
-//            table.column(self.mail, unique: true)
-            table.column(self.mail)
-            table.column(self.name)
-            table.column(self.phone)
-            table.column(self.address)
-            table.column(self.password)
-            table.column(self.gender)
-            table.column(self.isLoggedIn)
-        }
-
-        do {
-            try self.database.run(createTable)
-            print("Table Created")
+            let myDatabase = try Connection(fileUrl.path)
+            database = myDatabase
         } catch {
             print(error)
         }
     }
+   
+     func create(){
+        let createTable = userTable.create (ifNotExists: true){ (table) in
+                    table.column(id, primaryKey: true)
+                    table.column(mail, unique: true)
+                    table.column(name)
+                    table.column(phone)
+                    table.column(address)
+                    table.column(password)
+                    table.column(gender)
+                    table.column(isLoggedIn)
+                }
+
+                do {
+                    try database.run(createTable)
+                    print("Table Created")
+                } catch {
+                    print(error)
+                }
+    }
     
-     func insertUser(user:User){
+    func insertUser(user:User){
         let insertion = userTable.insert(self.mail <- user.email,
                                          self.name <- user.name,
                                          self.phone <- user.phone,
@@ -61,28 +63,28 @@ class DBManager {
                                          self.gender <- user.gender!.rawValue,
                                          self.isLoggedIn <- user.isLoggedIn)
         do {
-            try self.database.run(insertion)
+            try database.run(insertion)
             print("Inserted Successfully")
         } catch {
             print(error)
         }
     }
     
-     func selectAll(){
+    func user(isLoggedIn :Bool){
+        let userMail = self.userTable.filter(self.mail == mail)
+        let updateUser = userMail.update(self.isLoggedIn <- isLoggedIn)
         do {
-            let users = try self.database.prepare(self.userTable)
-            for user in users {
-                print("userId: \(user[self.id]), name: \(user[self.name]), email: \(user[self.mail])")
-            }
+            try database.run(updateUser)
         } catch {
             print(error)
         }
     }
-    func selectAllUsers()->[User]{
-        var allUsers = [User]()
-        var newUser : User!
+    
+    func selectAllUsers()->User{
+//        var allUsers = [User]()
+        var newUser = User()
         do {
-            let users = try self.database.prepare(self.userTable)
+            let users = try database.prepare(self.userTable)
             for user in users {
                 newUser.address = user[self.address]
                 newUser.gender = Gender(rawValue: user[self.gender])
@@ -91,13 +93,13 @@ class DBManager {
                 newUser.email = user[self.mail]
                 newUser.password = user[self.password]
                 newUser.phone = user[self.phone]
-                allUsers.append(newUser)
+//                allUsers.append(newUser)
                 print("Successfully Selected")
             }
         } catch {
             print(error)
         }
-        return allUsers
+        return newUser
     }
     
 }

@@ -9,6 +9,7 @@
 import Foundation
 
 struct Profile {
-   let item : String
-   var detail : String
+    let name : String
+    let detail : String
+    let itemImg : String
 }

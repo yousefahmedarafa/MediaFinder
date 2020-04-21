@@ -23,6 +23,7 @@ class SigninViewController: UIViewController {
         super.viewDidLoad()
         logInBtn.roundedCorner(radius: 12)
         textfieldDelegate()
+        DB.setupDB()
     }
     
     private func setNavigationBar(){
@@ -42,30 +43,37 @@ class SigninViewController: UIViewController {
     }
     
     @IBAction func logInBtnPressed(_ sender: UIButton) {
+//        var savedUser = UserDefaultsManager.shared().getSavedData()
+//        savedUser.isLoggedIn = true
+//        UserDefaultsManager.shared().saveDataFor(user:savedUser)
         
-        var savedUser = UserDefaultsManager.shared().getSavedData()
-        savedUser.isLoggedIn = true
-        UserDefaultsManager.shared().saveDataFor(user:savedUser)
-//        let db = DBManager()
-//        for user in db.selectAllUsers() {
-//            print(user.email)
+        let database = DB()
+        let user = database.selectAllUsers()
+        database.user(isLoggedIn: true)
+
+            if (emailTxtField.text == user.email) && (passwordTxtField.text == user.password){
+                let profileVC = UIStoryboard(name: Storyboard.profile, bundle: nil).instantiateViewController(withIdentifier: StoryboardID.profile) as! ProfileViewController
+                profileVC.receivedUser = user
+                let moviesVC = UIStoryboard(name: Storyboard.main, bundle: nil).instantiateViewController(withIdentifier: StoryboardID.movies) as! MovieViewController
+                navigationController?.pushViewController(moviesVC, animated: true)
+            }else {
+                alertControllerSetup()
+                emailTxtField.text = ""
+                passwordTxtField.text = ""
+            }
+        
+        
+//        if (emailTxtField.text == savedUser.email) && (passwordTxtField.text == savedUser.password){
+//            let profileVC = UIStoryboard(name: Storyboard.profile, bundle: nil).instantiateViewController(withIdentifier: StoryboardID.profile) as! ProfileViewController
+//            profileVC.receivedUser = savedUser
+//            let moviesVC = UIStoryboard(name: Storyboard.main, bundle: nil).instantiateViewController(withIdentifier: StoryboardID.movies) as! MovieViewController
+//            navigationController?.pushViewController(moviesVC, animated: true)
 //        }
-        
-        
-//        guard let mail = emailTxtField.text else { return }
-//        let savedUser = db.retrieveUser(email: mail )
-//        db.user(isLoggedIn: true)
-//
-        if (emailTxtField.text == savedUser.email) && (passwordTxtField.text == savedUser.password){
-            let profileVC = UIStoryboard(name: Storyboard.profile, bundle: nil).instantiateViewController(withIdentifier: StoryboardID.profile) as! ProfileViewController
-            profileVC.receivedUser = savedUser
-            let moviesVC = UIStoryboard(name: Storyboard.main, bundle: nil).instantiateViewController(withIdentifier: StoryboardID.movies) as! MovieViewController
-            navigationController?.pushViewController(moviesVC, animated: true)
-        }else{
-            alertControllerSetup()
-            emailTxtField.text = ""
-            passwordTxtField.text = ""
-        }
+//        else {
+//            alertControllerSetup()
+//            emailTxtField.text = ""
+//            passwordTxtField.text = ""
+//        }
     }
     
     @IBAction func dontHaveAccountBtnPressed(_ sender: UIButton) {

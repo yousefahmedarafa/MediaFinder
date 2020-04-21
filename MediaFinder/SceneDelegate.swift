@@ -28,24 +28,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let signupVC = UIStoryboard(name: Storyboard.registration, bundle: nil).instantiateViewController(identifier: StoryboardID.signup) as! SignupViewController
         
         let moviesVC = UIStoryboard(name: Storyboard.main, bundle: nil).instantiateViewController(withIdentifier: StoryboardID.movies) as! MovieViewController
+        DB.setupDB()
+        let db = DB()
         
-        
-//        if db.selectAll().count != 0 {
-//            for user in db.selectAll() {
-//                if user.isLoggedIn == true {
-//                    navigationController.setViewControllers([moviesVC], animated: true)
-//                }else {
-//                    navigationController.setViewControllers([signinVC], animated: true)
-//                }
-//            }
-//
-//        } else {
-//            navigationController.setViewControllers([signupVC], animated: true)
-//        }
-//        self.window?.rootViewController = navigationController
-        
-        if UserDefaultsManager.shared().getSavedData().email != nil {
-            if UserDefaultsManager.shared().getSavedData().isLoggedIn == true {
+        if db.selectAllUsers().email != nil {
+            if db.selectAllUsers().isLoggedIn == true {
                 navigationController.setViewControllers([moviesVC], animated: true)
             }else {
                 navigationController.setViewControllers([signinVC], animated: true)
@@ -55,6 +42,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         self.window?.rootViewController = navigationController
+        
+        //        if UserDefaultsManager.shared().getSavedData().email != nil {
+        //            if UserDefaultsManager.shared().getSavedData().isLoggedIn == true {
+        //                navigationController.setViewControllers([moviesVC], animated: true)
+        //            }else {
+        //                navigationController.setViewControllers([signinVC], animated: true)
+        //            }
+        //        } else {
+        //            navigationController.setViewControllers([signupVC], animated: true)
+        //        }
+        //
+        //        self.window?.rootViewController = navigationController
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
