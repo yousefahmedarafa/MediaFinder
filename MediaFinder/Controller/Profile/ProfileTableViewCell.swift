@@ -18,7 +18,8 @@ class ProfileTableViewCell: UITableViewCell {
     @IBOutlet weak var itemDetails: UILabel!
     @IBOutlet weak var passwordBtn: UIButton!
     
-//    var hiddenPassword = true
+    var hiddenPassword = true
+    var pass = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,8 +34,9 @@ class ProfileTableViewCell: UITableViewCell {
     
     func setupCell(_ data : Profile){
         
-        if data.name == "Password" {
+        if data.name == "Password" && hiddenPassword == true {
             passwordBtn.isHidden = false
+            pass = data.detail
             itemDetails.text = String(data.detail.map { _ in return "*" })
         }else{
             itemDetails.text = "\(data.detail)"
@@ -49,12 +51,16 @@ class ProfileTableViewCell: UITableViewCell {
     
     @IBAction func passwordBtnPressed(_ sender: UIButton) {
         print("Show Password Btn pressed")
-//        passwordBtn.imageView?.contentMode = .scaleAspectFit
-//        hiddenPassword = !hiddenPassword
-//        if hiddenPassword {
-//            passwordBtn.setImage(UIImage(named: "hidepass"), for: .normal)
-//        }else{
-//            passwordBtn.setImage(UIImage(named: "showpass"), for: .normal)
-//        }
+        
+        passwordBtn.imageView?.contentMode = .scaleAspectFit
+        hiddenPassword = !hiddenPassword
+        if hiddenPassword {
+            itemDetails.text = String(pass.map { _ in return "*" })
+            passwordBtn.setImage(UIImage(named: "hidePassword"), for: .normal)
+        }else{
+            itemDetails.text = pass
+            passwordBtn.setImage(UIImage(named: "pwEye"), for: .normal)
+            
+        }
     }
 }

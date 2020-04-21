@@ -46,7 +46,8 @@ extension ProfileViewController {
         guard let email = receivedUser.email else {return}
         guard let phone = receivedUser.phone else {return}
         guard let address = receivedUser.address else {return}
-        let password = String(receivedUser.password.map { _ in return "•" })
+//        let password = String(receivedUser.password.map { _ in return "•" })
+        guard let password = receivedUser.password else {return}
 //        let gender = receivedUser.gender.rawValue
 
         profileData += [
