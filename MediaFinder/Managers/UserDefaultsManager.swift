@@ -18,12 +18,7 @@ struct UserDefaultsManager {
     static func shared() -> UserDefaultsManager {
         return UserDefaultsManager.sharedInstance
     }
-    
-//    var isLoggedIn: Bool {
-//        set { UserDefaultsManager.userDefault.set(newValue, forKey: UserDefaultsKeys.isLoggedIn)}
-//        get { return  UserDefaultsManager.userDefault.bool(forKey: UserDefaultsKeys.isLoggedIn)}
-//    }
-    
+
     func saveDataFor(user: User){
         let encoder = JSONEncoder()
         guard let encoded = try? encoder.encode(user) else {return}

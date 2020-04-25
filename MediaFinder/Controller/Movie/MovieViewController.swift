@@ -35,6 +35,7 @@ class MovieViewController: UIViewController {
         loadingView.layer.borderWidth = 1.7
         loadingView.layer.borderColor = UIColor.black.cgColor
         MoviesDB.setupMediaDB()
+        mediaDB.createMedia()
     }
     
     @IBAction func mediaTypeSegmentVlaueCanged(_ sender: UISegmentedControl) {
@@ -56,12 +57,12 @@ class MovieViewController: UIViewController {
     
     func fetchData(){
         guard let searchField = searchTextField.text else {return}
-        APIManager.loadMyMovies(mediaType: segmentValue, criteria: searchField) { (error, movies) in
+        APIManager.loadMyMovies(mediaType: segmentValue, criteria: searchField) { (error, media) in
             if let error = error {
                 print(error.localizedDescription)
-            } else if let movies = movies {
-                self.mediaArr = movies
-                self.mediaDB.insertMedia(mediaArr: movies)
+            } else if let media = media {
+                self.mediaArr = media
+                self.mediaDB.insertMedia(mediaArr: media)
                 self.hideLoadingView()
                 if self.mediaArr.count == 0 {
                     self.alertControllerSetupFor(msg: "No Result Found")
@@ -94,13 +95,9 @@ class MovieViewController: UIViewController {
     @IBAction func searchBtnPressed(_ sender: UIButton) {
         startloadingView()
         fetchData()
+        //        let retrievedData = mediaDB.selectAllMedia()
+        //        mediaArr = retrievedData
         moviesTableView.scrollToTop()
-    }
-    
-    func retrievedMedia() -> [Media]{
-        let retrievedData = mediaDB.selectAllMedia()
-        mediaArr = retrievedData
-        return mediaArr
     }
 }
 extension MovieViewController : UITableViewDelegate , UITableViewDataSource {
@@ -112,59 +109,35 @@ extension MovieViewController : UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return mediaArr.count
-//        return retrievedMedia().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as? MovieTableViewCell else { return UITableViewCell() }
-//        cell.configureCell(media: retrievedMedia()[indexPath.row])
         cell.configureCell(media: mediaArr[indexPath.item])
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let previewLink = mediaArr[indexPath.item].previewUrl else {return}
         
         let mediaIndex = mediaArr[indexPath.item]
         let player = UIStoryboard(name: Storyboard.main, bundle: nil).instantiateViewController(identifier: StoryboardID.detailed) as! MediaDetailedViewController
         player.media = mediaIndex
         present(player, animated: true, completion: nil)
-//        navigationController?.pushViewController(player, animated: true)
-        
-        
-//        let videoURL = URL(string: previewLink)
-//        let player = AVPlayer(url: videoURL!)
-//        let playerViewController = AVPlayerViewController()
-//        playerViewController.player = player
-//        self.present(playerViewController, animated: true) {
-//            playerViewController.player!.play()
-//        }
-//        guard let image = URL(string: mediaArr[indexPath.item].artworkUrl100) else {return}
-//        let imageView = UIImageView()
-//        imageView.contentMode = UIView.ContentMode.scaleAspectFit
-//        if mediaArr[indexPath.item].getType() != MediaType.music {
-//            imageView.isHidden = true
-//        }
-//
-//        let width = view.safeAreaLayoutGuide.layoutFrame.width
-//        let height = view.safeAreaLayoutGuide.layoutFrame.height
-//        imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-//        imageView.sd_setImage(with: image)
-//        playerViewController.contentOverlayView?.addSubview(imageView)
-
+  
     }
 }
 
 
 extension MovieViewController {
     
-//    private func openSafariVC(withURL link: String){
-//        guard let url = URL(string: link) else { return }
-//        let safariVC = SFSafariViewController(url: url)
-//        present(safariVC, animated: true, completion: nil)
-//    }
+    //    private func openSafariVC(withURL link: String){
+    //        guard let url = URL(string: link) else { return }
+    //        let safariVC = SFSafariViewController(url: url)
+    //        present(safariVC, animated: true, completion: nil)
+    //    }
+    
     private func setNavigationBar(){
         self.navigationItem.hidesBackButton = true
         self.navigationItem.title = "Media Finder"
@@ -182,7 +155,7 @@ extension MovieViewController {
     @objc func goToProfile(){
         let profileVC = UIStoryboard(name: Storyboard.profile, bundle: nil).instantiateViewController(identifier: StoryboardID.profile) as! ProfileViewController
         navigationController?.pushViewController(profileVC, animated: true)
-        }
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)

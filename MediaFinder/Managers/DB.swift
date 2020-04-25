@@ -70,6 +70,17 @@ struct DB {
         }
     }
     
+    func updateField(fieldName :Expression<String> , newFieldValue :String){
+        let userID = self.userTable.filter(self.id == id)
+        let updateUserField = userID.update(fieldName <- newFieldValue)
+        do {
+            try database.run(updateUserField)
+            print("Successfully Updated")
+        } catch {
+            print(error)
+        }
+    }
+    
     func user(isLoggedIn :Bool){
         let userMail = self.userTable.filter(self.mail == mail)
         let updateUser = userMail.update(self.isLoggedIn <- isLoggedIn)

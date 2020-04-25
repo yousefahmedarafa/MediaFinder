@@ -43,9 +43,6 @@ class SigninViewController: UIViewController {
     }
     
     @IBAction func logInBtnPressed(_ sender: UIButton) {
-//        var savedUser = UserDefaultsManager.shared().getSavedData()
-//        savedUser.isLoggedIn = true
-//        UserDefaultsManager.shared().saveDataFor(user:savedUser)
         
         let database = DB()
         let user = database.selectAllUsers()
@@ -61,19 +58,6 @@ class SigninViewController: UIViewController {
                 emailTxtField.text = ""
                 passwordTxtField.text = ""
             }
-        
-        
-//        if (emailTxtField.text == savedUser.email) && (passwordTxtField.text == savedUser.password){
-//            let profileVC = UIStoryboard(name: Storyboard.profile, bundle: nil).instantiateViewController(withIdentifier: StoryboardID.profile) as! ProfileViewController
-//            profileVC.receivedUser = savedUser
-//            let moviesVC = UIStoryboard(name: Storyboard.main, bundle: nil).instantiateViewController(withIdentifier: StoryboardID.movies) as! MovieViewController
-//            navigationController?.pushViewController(moviesVC, animated: true)
-//        }
-//        else {
-//            alertControllerSetup()
-//            emailTxtField.text = ""
-//            passwordTxtField.text = ""
-//        }
     }
     
     @IBAction func dontHaveAccountBtnPressed(_ sender: UIButton) {

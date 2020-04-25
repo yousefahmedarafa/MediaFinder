@@ -9,8 +9,6 @@
 import UIKit
 import SQLite
 
-
-
 class SignupViewController: UIViewController {
     
     @IBOutlet weak var nameTxtField: UITextField!
@@ -24,11 +22,7 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     
     var imagePicker = UIImagePickerController()
-    
-//    let mapVC = UIStoryboard(name: Storyboard.appleMaps, bundle: nil).instantiateViewController(identifier: StoryboardID.appleMap) as! AppleMapViewController
-    
     var selectedLocation = ""
-    
     let database = DB()
     
     override func viewDidLoad() {
@@ -98,9 +92,7 @@ class SignupViewController: UIViewController {
         print(newUser.email!)
         
         database.insertUser(user: newUser)
-        
 
-        
         let signinVC = UIStoryboard(name: Storyboard.registration, bundle: nil).instantiateViewController(identifier: StoryboardID.signIn) as! SigninViewController
         navigationController?.pushViewController(signinVC, animated: true)
     }
@@ -115,7 +107,6 @@ class SignupViewController: UIViewController {
         mapVC.delegate = self
         mapVC.modalPresentationStyle = .fullScreen
         present(mapVC, animated: true, completion: nil)
-//        navigationController?.pushViewController(mapVC, animated: true)
     }
     
     private func alertControllerSetupFor(msg: String){
@@ -164,14 +155,12 @@ extension SignupViewController : UITextFieldDelegate {
         view.endEditing(true)
     }
 }
-
 extension SignupViewController: SendingAddressDelegate {
     func getLocation(address: String) {
         addressLabel.text = " \(address)"
         selectedLocation = " \(address)"
     }
 }
-
 extension SignupViewController: UIImagePickerControllerDelegate , UINavigationControllerDelegate {
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

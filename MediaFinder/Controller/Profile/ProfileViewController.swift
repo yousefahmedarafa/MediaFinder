@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController{
     
     
     @IBOutlet weak var backgroundImage: UIImageView!
@@ -22,6 +22,7 @@ class ProfileViewController: UIViewController {
     var profileData = [Profile]()
     var receivedUser: User!
     let db = DB()
+    var imagePicker = UIImagePickerController()
     
     
     override func viewDidLoad() {
@@ -33,20 +34,35 @@ class ProfileViewController: UIViewController {
         setupRightBarBtn()
         setProfileImage()
         DB.setupDB()
-    } 
+        imagePicker.delegate = self
+    }
+    
+    @IBAction func updateProfileBtnPressed(_ sender: UIButton) {
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    
 }
 extension ProfileViewController {
-    
+    func showAlert(_: ProfileTableViewCell) {
+    }
+
+    func showAlert(sender:ProfileTableViewCell) {
+        let alert = UIAlertController(title: "Error", message: "msg", preferredStyle: .alert)
+        let doneAction = UIAlertAction(title: "Done", style: .default, handler:{ _ in})
+        alert.addAction(doneAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+
     func setdata(){
         
         receivedUser = db.selectAllUsers()
-//        receivedUser = UserDefaultsManager.shared().getSavedData()
-        
         guard let name = receivedUser.name else {return}
         guard let email = receivedUser.email else {return}
         guard let phone = receivedUser.phone else {return}
         guard let address = receivedUser.address else {return}
-//        let password = String(receivedUser.password.map { _ in return "•" })
         guard let password = receivedUser.password else {return}
 //        let gender = receivedUser.gender.rawValue
 
@@ -69,9 +85,10 @@ extension ProfileViewController {
     }
     
     private func setNavigationBar(){
+//        navigationController?.navigationBar.barTintColor = UIColor.mainBlueColor
         navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationItem.title = "Profile"
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.mainBlueColor]
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.mainHavavnColor]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
     }
     
@@ -81,9 +98,7 @@ extension ProfileViewController {
     }
     
     @objc func logout(){
-        
-//        receivedUser.isLoggedIn = false
-//        UserDefaultsManager.shared().saveDataFor(user: receivedUser)
+
         db.user(isLoggedIn: false)
         let signinVC = UIStoryboard(name: Storyboard.registration, bundle: nil).instantiateViewController(identifier: StoryboardID.signIn) as! SigninViewController
         navigationController?.pushViewController(signinVC, animated: true)
@@ -92,12 +107,6 @@ extension ProfileViewController {
 
 extension ProfileViewController : UITableViewDelegate , UITableViewDataSource {
 
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return self.profileData.count
-//    }
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return self.profileData[section].item
-//    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return profileData.count
     }
@@ -105,13 +114,20 @@ extension ProfileViewController : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileTableViewCell") as! ProfileTableViewCell
         cell.passwordBtn.isHidden = true
-//        if self.profileData[indexPath.section].item == "Password" {
-//            cell.passwordBtn.isHidden = false
-//        }
         cell.setupCell(self.profileData[indexPath.row])
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
            return 95
        }
+}
+extension ProfileViewController: UIImagePickerControllerDelegate , UINavigationControllerDelegate {
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            profileImage.image = image
+            backgroundImage.image = image
+        }
+        dismiss(animated: true, completion: nil)
+    }
 }

@@ -72,7 +72,6 @@ struct MoviesDB {
                 print(error)
             }
         }
-        
     }
     
     func selectAllMedia() -> [Media] {

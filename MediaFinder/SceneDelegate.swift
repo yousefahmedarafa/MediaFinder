@@ -21,8 +21,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let navigationController = UINavigationController()
         
-        
-        
         let signinVC = UIStoryboard(name: Storyboard.registration, bundle: nil).instantiateViewController(identifier: StoryboardID.signIn) as! SigninViewController
         
         let signupVC = UIStoryboard(name: Storyboard.registration, bundle: nil).instantiateViewController(identifier: StoryboardID.signup) as! SignupViewController
@@ -42,18 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         self.window?.rootViewController = navigationController
-        
-        //        if UserDefaultsManager.shared().getSavedData().email != nil {
-        //            if UserDefaultsManager.shared().getSavedData().isLoggedIn == true {
-        //                navigationController.setViewControllers([moviesVC], animated: true)
-        //            }else {
-        //                navigationController.setViewControllers([signinVC], animated: true)
-        //            }
-        //        } else {
-        //            navigationController.setViewControllers([signupVC], animated: true)
-        //        }
-        //
-        //        self.window?.rootViewController = navigationController
+
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

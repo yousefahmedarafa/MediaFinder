@@ -26,15 +26,11 @@
 		E252CEA32438E5330087472D /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E252CE972438E5320087472D /* MovieViewController.swift */; };
 		E252CEA52438E5330087472D /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E252CE992438E5320087472D /* MovieTableViewCell.swift */; };
 		E252CEA62438E5330087472D /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E252CE9A2438E5330087472D /* SigninViewController.swift */; };
-		E252CEAD2438E5450087472D /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E252CEAB2438E5450087472D /* UserDefaultsManager.swift */; };
-		E252CEAE2438E5450087472D /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E252CEAC2438E5450087472D /* DatabaseManager.swift */; };
 		E252CEB22438E54E0087472D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E252CEB02438E54E0087472D /* User.swift */; };
 		E252CEBB2438E5630087472D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E252CEB42438E5630087472D /* UIView.swift */; };
-		E252CEBC2438E5630087472D /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E252CEB52438E5630087472D /* UserDefaultsKeys.swift */; };
 		E252CEBF2438E5630087472D /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E252CEB82438E5630087472D /* Storyboard.swift */; };
 		E252CEC02438E5630087472D /* StoryboardID.swift in Sources */ = {isa = PBXBuildFile; fileRef = E252CEB92438E5630087472D /* StoryboardID.swift */; };
 		E252CEC12438E5630087472D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E252CEBA2438E5630087472D /* Colors.swift */; };
-		E2583944244B8EFB00A5A78E /* SqlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2583943244B8EFB00A5A78E /* SqlManager.swift */; };
 		E25F9C842439D86700004ADA /* MediaResponce.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25F9C832439D86700004ADA /* MediaResponce.swift */; };
 		E25F9C862439E8A600004ADA /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25F9C852439E8A600004ADA /* Media.swift */; };
 		E25F9C882439EA6200004ADA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25F9C872439EA6200004ADA /* Constants.swift */; };
@@ -73,15 +69,11 @@
 		E252CE972438E5320087472D /* MovieViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieViewController.swift; sourceTree = "<group>"; };
 		E252CE992438E5320087472D /* MovieTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		E252CE9A2438E5330087472D /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
-		E252CEAB2438E5450087472D /* UserDefaultsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
-		E252CEAC2438E5450087472D /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		E252CEB02438E54E0087472D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E252CEB42438E5630087472D /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
-		E252CEB52438E5630087472D /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		E252CEB82438E5630087472D /* Storyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
 		E252CEB92438E5630087472D /* StoryboardID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardID.swift; sourceTree = "<group>"; };
 		E252CEBA2438E5630087472D /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		E2583943244B8EFB00A5A78E /* SqlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqlManager.swift; sourceTree = "<group>"; };
 		E25F9C832439D86700004ADA /* MediaResponce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaResponce.swift; sourceTree = "<group>"; };
 		E25F9C852439E8A600004ADA /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		E25F9C872439EA6200004ADA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -234,9 +226,6 @@
 		E252CEAA2438E5450087472D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				E252CEAB2438E5450087472D /* UserDefaultsManager.swift */,
-				E252CEAC2438E5450087472D /* DatabaseManager.swift */,
-				E2583943244B8EFB00A5A78E /* SqlManager.swift */,
 				E2C1FB08244D061900A10E3F /* DB.swift */,
 				E2C1FB0A244D154000A10E3F /* MoviesDB.swift */,
 			);
@@ -247,7 +236,6 @@
 			isa = PBXGroup;
 			children = (
 				E252CEB42438E5630087472D /* UIView.swift */,
-				E252CEB52438E5630087472D /* UserDefaultsKeys.swift */,
 				E252CEB82438E5630087472D /* Storyboard.swift */,
 				E252CEB92438E5630087472D /* StoryboardID.swift */,
 				E252CEBA2438E5630087472D /* Colors.swift */,
@@ -407,13 +395,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E252CEC12438E5630087472D /* Colors.swift in Sources */,
-				E252CEAE2438E5450087472D /* DatabaseManager.swift in Sources */,
 				E2C1FB0B244D154000A10E3F /* MoviesDB.swift in Sources */,
 				E252CEA52438E5330087472D /* MovieTableViewCell.swift in Sources */,
 				E28D137F24469B4900CD9C26 /* Profile.swift in Sources */,
 				E252CEA32438E5330087472D /* MovieViewController.swift in Sources */,
 				E25F9C862439E8A600004ADA /* Media.swift in Sources */,
-				E252CEBC2438E5630087472D /* UserDefaultsKeys.swift in Sources */,
 				E252CEB22438E54E0087472D /* User.swift in Sources */,
 				E222E386244C038500FFC22C /* AppleMapViewController.swift in Sources */,
 				E252CE742438E45C0087472D /* AppDelegate.swift in Sources */,
@@ -422,10 +408,8 @@
 				E252CEA02438E5330087472D /* SignupViewController.swift in Sources */,
 				E2C1FB09244D061900A10E3F /* DB.swift in Sources */,
 				E252CEC02438E5630087472D /* StoryboardID.swift in Sources */,
-				E252CEAD2438E5450087472D /* UserDefaultsManager.swift in Sources */,
 				E252CE762438E45C0087472D /* SceneDelegate.swift in Sources */,
 				E252CEBB2438E5630087472D /* UIView.swift in Sources */,
-				E2583944244B8EFB00A5A78E /* SqlManager.swift in Sources */,
 				E28D13582446464800CD9C26 /* ProfileViewController.swift in Sources */,
 				E25F9C8D2439EC9700004ADA /* Paramters.swift in Sources */,
 				E25F9C8B2439EB0100004ADA /* APIManager.swift in Sources */,
