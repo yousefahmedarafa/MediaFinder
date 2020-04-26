@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SQLite
 
 class ProfileTableViewCell: UITableViewCell {
     
@@ -52,9 +53,8 @@ class ProfileTableViewCell: UITableViewCell {
     @IBAction func editBtnPressed(_ sender: UIButton) {
         print("Edit HERE!!!")
         guard let name = profileData?.name else {return}
-        guard let address = profileData?.name else {return}
         
-        if address == "Address" {
+        if name == "Address" {
             let mapVC = UIStoryboard(name: Storyboard.appleMaps, bundle: nil).instantiateViewController(identifier: StoryboardID.appleMap) as! AppleMapViewController
             mapVC.delegate = self
             mapVC.modalPresentationStyle = .fullScreen
@@ -65,6 +65,7 @@ class ProfileTableViewCell: UITableViewCell {
     }
     private func alertControllerSetupFor(title: String){
         
+        guard let name = profileData?.name else {return}
         guard let detail = profileData?.detail else {return}
         
         let fieldMsg = "your current \(title) is \(detail)"
@@ -72,9 +73,33 @@ class ProfileTableViewCell: UITableViewCell {
         alert.addTextField { (textfield) in textfield.placeholder = "New \(title)" }
         let updateAction = UIAlertAction(title: "Update", style: .default) { (_) in
             
+            var field : Expression<String>
+            
+            switch name
+            {
+            case "Name":
+                field = self.db.name
+                
+            case "Mail":
+                field = self.db.mail
+                
+            case "Address":
+                field = self.db.address
+                
+            case "Phone":
+                field = self.db.phone
+                
+            case "Password":
+                field = self.db.password
+                
+            default:
+                field = self.db.name
+            }
+            
             guard let newValue = alert.textFields?.first?.text else { return }
             
-            self.db.updateField(fieldName: self.db.name, newFieldValue: newValue)
+            self.db.updateField(fieldName: field, newFieldValue: newValue)
+            print("\(self.itemName.text ?? "") updated")
             if newValue.isEmpty == false {
                 self.itemDetails.text = newValue
             }

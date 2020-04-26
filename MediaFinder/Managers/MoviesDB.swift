@@ -53,11 +53,12 @@ struct MoviesDB {
     func insertMedia(mediaArr: [Media]){
         
         for media in mediaArr {
-            guard let artistName = media.artistName else { return }
-            guard let trackName = media.trackName else { return }
-            guard let longDescription = media.longDescription else { return }
-            guard let previewUrl = media.previewUrl else { return }
-            guard let kind = media.kind else { return }
+            
+            let artistName = media.artistName ?? ""
+            let trackName = media.trackName ?? ""
+            let longDescription = media.longDescription ?? ""
+            let previewUrl = media.previewUrl ?? ""
+            let kind = media.kind ?? ""
             
             let insertion = movieTable.insert(self.artworkUrl100 <- media.artworkUrl100,
                                               self.artistName <- artistName,
