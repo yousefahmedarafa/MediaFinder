@@ -9,30 +9,32 @@
 import Foundation
 import SQLite
 
-struct MoviesDB {
+struct MediaDB {
     
-    let movieTable = Table("media")
-    let id = Expression<Int>("id")
-    let artworkUrl100 = Expression<String>("artworkUrl100")
-    let artistName = Expression<String>("artistName")
-    let trackName = Expression<String>("trackName")
-    let longDescription = Expression<String>("longDescription")
-    let previewUrl = Expression<String>("previewUrl")
-    let kind = Expression<String>("kind")
+    static var db : Connection!
+    static let mediaTable = Table("media")
+    static let id = Expression<Int>("id")
+    static let artworkUrl100 = Expression<String>("artworkUrl100")
+    static let artistName = Expression<String>("artistName")
+    static let trackName = Expression<String>("trackName")
+    static let longDescription = Expression<String>("longDescription")
+    static let previewUrl = Expression<String>("previewUrl")
+    static let kind = Expression<String>("kind")
     
     static func setupMediaDB(){
         do {
             let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
             let fileUrl = documentDirectory.appendingPathComponent("media").appendingPathExtension("sqlite3")
             let myDatabase = try Connection(fileUrl.path)
-            database = myDatabase
+//            UserDB.database = myDatabase
+            db = myDatabase
         } catch {
             print(error)
         }
     }
     
-    func createMedia(){
-        let createTable = movieTable.create (ifNotExists: true){ (table) in
+    static func createMedia(){
+        let createTable = mediaTable.create (ifNotExists: true){ (table) in
             table.column(id, primaryKey: true)
             table.column(artworkUrl100)
             table.column(artistName)
@@ -43,14 +45,14 @@ struct MoviesDB {
         }
         
         do {
-            try database.run(createTable)
+            try db.run(createTable)
             print("Movie Table Created")
         } catch {
             print(error)
         }
     }
     
-    func insertMedia(mediaArr: [Media]){
+    static func insertMedia(mediaArr: [Media]){
         
         for media in mediaArr {
             
@@ -60,14 +62,14 @@ struct MoviesDB {
             let previewUrl = media.previewUrl ?? ""
             let kind = media.kind ?? ""
             
-            let insertion = movieTable.insert(self.artworkUrl100 <- media.artworkUrl100,
+            let insertion = mediaTable.insert(self.artworkUrl100 <- media.artworkUrl100,
                                               self.artistName <- artistName,
                                               self.trackName <- trackName,
                                               self.longDescription <- longDescription,
                                               self.previewUrl <- previewUrl,
                                               self.kind <- kind)
             do {
-                try database.run(insertion)
+                try db.run(insertion)
                 print("Media Inserted Successfully")
             } catch {
                 print(error)
@@ -75,10 +77,10 @@ struct MoviesDB {
         }
     }
     
-    func selectAllMedia() -> [Media] {
+    static func selectAllMedia() -> [Media] {
         var mediaArray = [Media]()
         do {
-            let allMedia = try database.prepare(self.movieTable)
+            let allMedia = try db.prepare(self.mediaTable)
             for media in allMedia {
                 let newMedia = Media(artworkUrl100: media[self.artworkUrl100],
                                      artistName: media[self.artistName],
@@ -94,4 +96,15 @@ struct MoviesDB {
         }
         return mediaArray
     }
+    
+    static func deleteMediaTable(){
+        let table = self.mediaTable
+        let deleteHistory = table.delete()
+        do {
+            try self.db.run(deleteHistory)
+        } catch {
+            print(error)
+        }
+    }
+    
 }

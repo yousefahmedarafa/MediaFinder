@@ -62,6 +62,63 @@
                                     <constraint firstAttribute="trailing" secondItem="weM-tz-zGr" secondAttribute="trailing" constant="8" id="rzm-29-tDg"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="POt-y7-EUn">
+                                <rect key="frame" x="41.5" y="313.5" width="331" height="269"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NLF-hC-L7u">
+                                        <rect key="frame" x="8" y="8" width="315" height="253"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Go ahead search for any Media up there" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9LX-vf-tmf">
+                                                <rect key="frame" x="0.0" y="0.0" width="315" height="41"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                <color key="textColor" red="0.094117647060000004" green="0.1450980392" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ere-Nt-m80" customClass="AnimationView" customModule="Lottie">
+                                                <rect key="frame" x="0.0" y="41" width="315" height="212"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="search1"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="NLF-hC-L7u" secondAttribute="trailing" constant="8" id="3qR-l4-f3j"/>
+                                    <constraint firstAttribute="bottom" secondItem="NLF-hC-L7u" secondAttribute="bottom" constant="8" id="Uc0-OG-v06"/>
+                                    <constraint firstItem="NLF-hC-L7u" firstAttribute="top" secondItem="POt-y7-EUn" secondAttribute="top" constant="8" id="yx5-uX-BPm"/>
+                                    <constraint firstItem="NLF-hC-L7u" firstAttribute="leading" secondItem="POt-y7-EUn" secondAttribute="leading" constant="8" id="zCI-5S-ErQ"/>
+                                </constraints>
+                            </view>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eLS-RV-C1D">
+                                <rect key="frame" x="352" y="800" width="50" height="50"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="seL-y6-x8G">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TcH-Pk-02M">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <state key="normal" image="delete"/>
+                                            <connections>
+                                                <action selector="clearHistorybtnPressed:" destination="iwr-Lx-AWS" eventType="touchUpInside" id="cR0-DV-PT5"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="TcH-Pk-02M" secondAttribute="bottom" id="1zP-su-r4p"/>
+                                        <constraint firstItem="TcH-Pk-02M" firstAttribute="leading" secondItem="seL-y6-x8G" secondAttribute="leading" id="4z8-J3-inB"/>
+                                        <constraint firstAttribute="trailing" secondItem="TcH-Pk-02M" secondAttribute="trailing" id="gSJ-Pi-xHo"/>
+                                        <constraint firstItem="TcH-Pk-02M" firstAttribute="top" secondItem="seL-y6-x8G" secondAttribute="top" id="ukz-wu-tqN"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="oNW-c5-qlY"/>
+                                    <constraint firstAttribute="width" secondItem="eLS-RV-C1D" secondAttribute="height" multiplier="1:1" id="rXH-N1-PIy"/>
+                                </constraints>
+                                <blurEffect style="regular"/>
+                            </visualEffectView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wev-TG-boJ">
                                 <rect key="frame" x="365" y="52" width="29" height="28"/>
                                 <constraints>
@@ -81,12 +138,18 @@
                             <constraint firstItem="d2O-PB-Kcu" firstAttribute="trailing" secondItem="wev-TG-boJ" secondAttribute="trailing" constant="20" id="9Xq-Ab-rpF"/>
                             <constraint firstItem="5o3-ke-Nha" firstAttribute="centerY" secondItem="KMc-RF-sSY" secondAttribute="centerY" id="Cf9-EB-zUA"/>
                             <constraint firstItem="5o3-ke-Nha" firstAttribute="centerX" secondItem="KMc-RF-sSY" secondAttribute="centerX" id="EyF-Ab-D37"/>
+                            <constraint firstItem="POt-y7-EUn" firstAttribute="width" secondItem="KMc-RF-sSY" secondAttribute="width" multiplier="0.8" id="F6y-Df-eyX"/>
                             <constraint firstItem="nM4-uc-0Ik" firstAttribute="top" secondItem="lOn-z0-vFQ" secondAttribute="bottom" constant="8" id="ItB-aI-OVH"/>
                             <constraint firstItem="NBp-xY-ZrV" firstAttribute="leading" secondItem="d2O-PB-Kcu" secondAttribute="leading" constant="20" id="NXZ-r0-LYn"/>
+                            <constraint firstItem="POt-y7-EUn" firstAttribute="height" secondItem="KMc-RF-sSY" secondAttribute="height" multiplier="0.3" id="Qej-oY-Uxn"/>
                             <constraint firstItem="lOn-z0-vFQ" firstAttribute="leading" secondItem="d2O-PB-Kcu" secondAttribute="leading" constant="20" id="Rc4-ag-hYJ"/>
                             <constraint firstItem="lOn-z0-vFQ" firstAttribute="top" secondItem="NBp-xY-ZrV" secondAttribute="bottom" constant="8" id="Tkp-fG-bFy"/>
+                            <constraint firstItem="POt-y7-EUn" firstAttribute="centerX" secondItem="KMc-RF-sSY" secondAttribute="centerX" id="Yry-pr-ntY"/>
                             <constraint firstItem="wev-TG-boJ" firstAttribute="top" secondItem="d2O-PB-Kcu" secondAttribute="top" constant="8" id="bc2-9P-jJI"/>
+                            <constraint firstItem="d2O-PB-Kcu" firstAttribute="bottom" secondItem="eLS-RV-C1D" secondAttribute="bottom" constant="12" id="dWm-Jy-Sag"/>
                             <constraint firstItem="nM4-uc-0Ik" firstAttribute="bottom" secondItem="d2O-PB-Kcu" secondAttribute="bottom" id="do7-9Z-K5g"/>
+                            <constraint firstItem="POt-y7-EUn" firstAttribute="centerY" secondItem="KMc-RF-sSY" secondAttribute="centerY" id="kT2-aZ-I8n"/>
+                            <constraint firstItem="d2O-PB-Kcu" firstAttribute="trailing" secondItem="eLS-RV-C1D" secondAttribute="trailing" constant="12" id="lMl-M8-FHc"/>
                             <constraint firstItem="NBp-xY-ZrV" firstAttribute="top" secondItem="d2O-PB-Kcu" secondAttribute="top" constant="8" id="mlF-iX-dAv"/>
                             <constraint firstItem="wev-TG-boJ" firstAttribute="leading" secondItem="NBp-xY-ZrV" secondAttribute="trailing" constant="8" id="rcJ-GR-aEs"/>
                             <constraint firstItem="nM4-uc-0Ik" firstAttribute="leading" secondItem="d2O-PB-Kcu" secondAttribute="leading" id="us0-jh-PzT"/>
@@ -96,6 +159,8 @@
                     <connections>
                         <outlet property="loadingView" destination="5o3-ke-Nha" id="JDz-qD-VvC"/>
                         <outlet property="loadingwheel" destination="w6K-h8-xQb" id="EK2-MA-4Tk"/>
+                        <outlet property="lottieContainerView" destination="POt-y7-EUn" id="zJN-cg-2wP"/>
+                        <outlet property="lottieView" destination="ere-Nt-m80" id="ayT-Qk-T6p"/>
                         <outlet property="mediaTypeSegment" destination="lOn-z0-vFQ" id="33u-Ag-oOO"/>
                         <outlet property="moviesTableView" destination="nM4-uc-0Ik" id="AA2-9n-FYb"/>
                         <outlet property="searchTextField" destination="NBp-xY-ZrV" id="jHX-Bs-2eg"/>
@@ -105,23 +170,9 @@
             </objects>
             <point key="canvasLocation" x="-336.23188405797106" y="136.60714285714286"/>
         </scene>
-        <!--Media Detailed View Controller-->
-        <scene sceneID="YlH-q0-zhg">
-            <objects>
-                <viewController storyboardIdentifier="MediaDetailedViewController" id="6QM-3F-1Zd" customClass="MediaDetailedViewController" customModule="MediaFinder" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="PsE-xU-9wi">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="ccw-1b-XN5"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OpN-iv-GQH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="514" y="138"/>
-        </scene>
     </scenes>
     <resources>
+        <image name="delete" width="64" height="64"/>
         <image name="search" width="256" height="256"/>
     </resources>
 </document>

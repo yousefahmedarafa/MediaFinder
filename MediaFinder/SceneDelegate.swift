@@ -26,11 +26,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let signupVC = UIStoryboard(name: Storyboard.registration, bundle: nil).instantiateViewController(identifier: StoryboardID.signup) as! SignupViewController
         
         let moviesVC = UIStoryboard(name: Storyboard.main, bundle: nil).instantiateViewController(withIdentifier: StoryboardID.movies) as! MovieViewController
-        DB.setupDB()
-        let db = DB()
         
-        if db.selectAllUsers().email != nil {
-            if db.selectAllUsers().isLoggedIn == true {
+        UserDB.setupDB()
+//        let db = UserDB()
+        
+        if UserDB.selectAllUsers().email != nil {
+            if UserDB.selectAllUsers().isLoggedIn == true {
                 navigationController.setViewControllers([moviesVC], animated: true)
             }else {
                 navigationController.setViewControllers([signinVC], animated: true)

@@ -23,7 +23,7 @@ class SigninViewController: UIViewController {
         super.viewDidLoad()
         logInBtn.roundedCorner(radius: 12)
         textfieldDelegate()
-        DB.setupDB()
+        UserDB.setupDB()
     }
     
     private func setNavigationBar(){
@@ -44,9 +44,8 @@ class SigninViewController: UIViewController {
     
     @IBAction func logInBtnPressed(_ sender: UIButton) {
         
-        let database = DB()
-        let user = database.selectAllUsers()
-        database.user(isLoggedIn: true)
+        let user = UserDB.selectAllUsers()
+        UserDB.user(isLoggedIn: true)
 
             if (emailTxtField.text == user.email) && (passwordTxtField.text == user.password){
                 let profileVC = UIStoryboard(name: Storyboard.profile, bundle: nil).instantiateViewController(withIdentifier: StoryboardID.profile) as! ProfileViewController

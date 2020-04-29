@@ -7,21 +7,31 @@
 //
 
 import UIKit
+import Lottie
 
 class MovieViewController: UIViewController {
     
     var mediaArr = [Media]()
     var segmentValue = "music"
-    let mediaDB = MoviesDB()
     
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var moviesTableView: UITableView!
     @IBOutlet weak var loadingwheel: UIActivityIndicatorView!
     @IBOutlet weak var mediaTypeSegment: UISegmentedControl!
     @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var lottieContainerView: UIView!
+    @IBOutlet weak var lottieView: AnimationView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let retrievedData = MediaDB.selectAllMedia()
+        if retrievedData.count == 0 {
+            lottieContainerView.isHidden = false
+            lottieView.play()
+            lottieView.loopMode = .loop
+            lottieView.animationSpeed = 1.0
+        }
+        mediaArr = retrievedData
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
@@ -31,12 +41,25 @@ class MovieViewController: UIViewController {
         setNavigationBar()
         setupRightBarBtn()
         moviesTableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "MovieTableViewCell")
-        loadingView.isHidden = true
-        loadingView.layer.borderWidth = 1.7
-        loadingView.layer.borderColor = UIColor.black.cgColor
-        MoviesDB.setupMediaDB()
-        mediaDB.createMedia()
+        setupLoadingView()
+        MediaDB.setupMediaDB()
+        MediaDB.createMedia()
+        lottieContainerView.isHidden = true
+       
     }
+    
+    private func setupLoadingView(){
+        loadingView.isHidden = true
+        loadingView.layer.borderWidth = 1.5
+        loadingView.layer.borderColor = UIColor.black.cgColor
+    }
+    
+    @IBAction func clearHistorybtnPressed(_ sender: UIButton) {
+        MediaDB.deleteMediaTable()
+        mediaArr.removeAll()
+        moviesTableView.reloadData()
+    }
+    
     
     @IBAction func mediaTypeSegmentVlaueCanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex
@@ -55,14 +78,14 @@ class MovieViewController: UIViewController {
         }
     }
     
-    func fetchData(){
+    private func fetchData(){
         guard let searchField = searchTextField.text else {return}
         APIManager.loadMyMovies(mediaType: segmentValue, criteria: searchField) { (error, media) in
             if let error = error {
                 print(error.localizedDescription)
             } else if let media = media {
                 self.mediaArr = media
-                self.mediaDB.insertMedia(mediaArr: media)
+                MediaDB.insertMedia(mediaArr: media)
                 self.hideLoadingView()
                 if self.mediaArr.count == 0 {
                     self.alertControllerSetupFor(msg: "No Result Found")
@@ -93,13 +116,13 @@ class MovieViewController: UIViewController {
     }
     
     @IBAction func searchBtnPressed(_ sender: UIButton) {
+        lottieContainerView.isHidden = true
         startloadingView()
         fetchData()
-        //        let retrievedData = mediaDB.selectAllMedia()
-        //        mediaArr = retrievedData
         moviesTableView.scrollToTop()
     }
 }
+
 extension MovieViewController : UITableViewDelegate , UITableViewDataSource {
     
     private func setupTableView(){
@@ -122,13 +145,12 @@ extension MovieViewController : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let mediaIndex = mediaArr[indexPath.item]
-        let player = UIStoryboard(name: Storyboard.main, bundle: nil).instantiateViewController(identifier: StoryboardID.detailed) as! MediaDetailedViewController
-        player.media = mediaIndex
-        present(player, animated: true, completion: nil)
-  
+        let mediaPlayer = MediaDetailedViewController()
+        mediaPlayer.media = mediaIndex
+        present(mediaPlayer, animated: true, completion: nil)
+        
     }
 }
-
 
 extension MovieViewController {
     
@@ -157,25 +179,9 @@ extension MovieViewController {
         navigationController?.pushViewController(profileVC, animated: true)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
-}
-extension UITableView{
-    
-    func scrollToTop(){
-        
-        for index in 0...numberOfSections - 1 {
-            if numberOfSections > 0 && numberOfRows(inSection: index) > 0 {
-                scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: true)
-                break
-            }
-            if index == numberOfSections - 1 {
-                setContentOffset(.zero, animated: true)
-                break
-            }
-        }
-    }
+    //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //        view.endEditing(true)
+    //    }
 }
 
 

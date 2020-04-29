@@ -150,6 +150,16 @@
                                     <constraint firstAttribute="width" constant="150" id="WC6-nc-70e"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uz7-KX-NON">
+                                <rect key="frame" x="339" y="787" width="55" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="55" id="0B9-wI-2Ft"/>
+                                    <constraint firstAttribute="width" secondItem="uz7-KX-NON" secondAttribute="height" multiplier="1:1" id="n1u-JV-gt2"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="deleteProfileBtnPressed:" destination="Bwn-d8-etX" eventType="touchUpInside" id="Yhx-zh-c9K"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYk-On-0Pn">
                                 <rect key="frame" x="131.5" y="271" width="151" height="30"/>
                                 <state key="normal" title="Update Profile Picture"/>
@@ -164,8 +174,10 @@
                             <constraint firstItem="9DR-K3-d7V" firstAttribute="trailing" secondItem="0ul-WC-Xh7" secondAttribute="trailing" id="4Hp-9H-yLH"/>
                             <constraint firstItem="aTS-yq-UqX" firstAttribute="centerY" secondItem="oaI-H2-5QT" secondAttribute="centerY" multiplier="0.42" id="4TV-Fa-XmB"/>
                             <constraint firstItem="czl-4a-hM5" firstAttribute="centerY" secondItem="oaI-H2-5QT" secondAttribute="centerY" multiplier="0.55" id="4fK-0a-CLl"/>
+                            <constraint firstItem="0ul-WC-Xh7" firstAttribute="trailing" secondItem="uz7-KX-NON" secondAttribute="trailing" constant="20" id="MDC-WX-1vG"/>
                             <constraint firstItem="aTS-yq-UqX" firstAttribute="centerX" secondItem="oaI-H2-5QT" secondAttribute="centerX" id="PYe-46-3W2"/>
                             <constraint firstItem="QYk-On-0Pn" firstAttribute="top" secondItem="aTS-yq-UqX" secondAttribute="bottom" constant="8" id="UbF-D2-qH1"/>
+                            <constraint firstItem="0ul-WC-Xh7" firstAttribute="bottom" secondItem="uz7-KX-NON" secondAttribute="bottom" constant="20" id="UdX-WN-VbM"/>
                             <constraint firstItem="9DR-K3-d7V" firstAttribute="top" secondItem="oaI-H2-5QT" secondAttribute="top" id="UkJ-ze-Kzm"/>
                             <constraint firstItem="GVm-tw-tpw" firstAttribute="centerY" secondItem="oaI-H2-5QT" secondAttribute="centerY" multiplier="1.19" id="adH-3J-zYw"/>
                             <constraint firstItem="GVm-tw-tpw" firstAttribute="height" secondItem="oaI-H2-5QT" secondAttribute="height" multiplier="0.652902" id="cFd-aq-meR"/>
@@ -179,6 +191,7 @@
                     </view>
                     <connections>
                         <outlet property="backgroundImage" destination="czl-4a-hM5" id="6KK-0e-9yk"/>
+                        <outlet property="deleteUserBtn" destination="uz7-KX-NON" id="Bth-Ss-qi6"/>
                         <outlet property="profileImage" destination="aTS-yq-UqX" id="91N-jP-x8G"/>
                         <outlet property="profileTableView" destination="edy-LA-fOF" id="yFf-IZ-TcO"/>
                         <outlet property="profileView" destination="GVm-tw-tpw" id="5Vq-o9-s5f"/>

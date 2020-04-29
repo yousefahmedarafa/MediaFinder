@@ -19,9 +19,10 @@ class ProfileViewController: UIViewController{
     
     @IBOutlet weak var profileView: UIView!
     
+    @IBOutlet weak var deleteUserBtn: UIButton!
+    
     var profileData = [Profile]()
     var receivedUser: User!
-    let db = DB()
     var imagePicker = UIImagePickerController()
     
     
@@ -33,8 +34,14 @@ class ProfileViewController: UIViewController{
         setNavigationBar()
         setupRightBarBtn()
         setProfileImage()
-        DB.setupDB()
+        UserDB.setupDB()
         imagePicker.delegate = self
+    }
+    @IBAction func deleteProfileBtnPressed(_ sender: UIButton) {
+        
+        UserDB.deleteUserTable()
+        let signinVC = UIStoryboard(name: Storyboard.registration, bundle: nil).instantiateViewController(identifier: StoryboardID.signIn) as! SigninViewController
+        navigationController?.pushViewController(signinVC, animated: true)
     }
     
     @IBAction func updateProfileBtnPressed(_ sender: UIButton) {
@@ -58,14 +65,19 @@ extension ProfileViewController {
 
     func setdata(){
         
-        receivedUser = db.selectAllUsers()
+        receivedUser = UserDB.selectAllUsers()
         guard let name = receivedUser.name else {return}
         guard let email = receivedUser.email else {return}
         guard let phone = receivedUser.phone else {return}
         guard let address = receivedUser.address else {return}
         guard let password = receivedUser.password else {return}
-//        let gender = receivedUser.gender.rawValue
+        let gender = receivedUser.gender.rawValue
 
+        if gender == Gender.Male.rawValue {
+            deleteUserBtn.setImage(UIImage(named: "deleteMaleUser"), for: .normal)
+        }else{
+            deleteUserBtn.setImage(UIImage(named: "deleteFemaleUser"), for: .normal)
+        }
         profileData += [
             Profile(name: "Name", detail: name, itemImg: "name"),
             Profile(name: "Mail", detail: email, itemImg: "mail"),
@@ -99,7 +111,7 @@ extension ProfileViewController {
     
     @objc func logout(){
 
-        db.user(isLoggedIn: false)
+        UserDB.user(isLoggedIn: false)
         let signinVC = UIStoryboard(name: Storyboard.registration, bundle: nil).instantiateViewController(identifier: StoryboardID.signIn) as! SigninViewController
         navigationController?.pushViewController(signinVC, animated: true)
     }

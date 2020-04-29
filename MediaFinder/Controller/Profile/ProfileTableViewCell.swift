@@ -21,7 +21,7 @@ class ProfileTableViewCell: UITableViewCell {
     var hiddenPassword = true
     var password = ""
     var profileData : Profile?
-    let db = DB()
+    let db = UserDB()
     
     
     override func awakeFromNib() {
@@ -29,7 +29,7 @@ class ProfileTableViewCell: UITableViewCell {
         shadowView.dropShadow()
         passwordBtn.isHidden = true
         passwordBtn.imageView?.contentMode = .scaleAspectFit
-        DB.setupDB()
+        UserDB.setupDB()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -78,27 +78,27 @@ class ProfileTableViewCell: UITableViewCell {
             switch name
             {
             case "Name":
-                field = self.db.name
+                field = UserDB.name
                 
             case "Mail":
-                field = self.db.mail
+                field = UserDB.mail
                 
             case "Address":
-                field = self.db.address
+                field = UserDB.address
                 
             case "Phone":
-                field = self.db.phone
+                field = UserDB.phone
                 
             case "Password":
-                field = self.db.password
+                field = UserDB.password
                 
             default:
-                field = self.db.name
+                field = UserDB.name
             }
             
             guard let newValue = alert.textFields?.first?.text else { return }
             
-            self.db.updateField(fieldName: field, newFieldValue: newValue)
+            UserDB.updateField(fieldName: field, newFieldValue: newValue)
             print("\(self.itemName.text ?? "") updated")
             if newValue.isEmpty == false {
                 self.itemDetails.text = newValue
@@ -127,6 +127,6 @@ class ProfileTableViewCell: UITableViewCell {
 extension ProfileTableViewCell : SendingAddressDelegate {
     func getLocation(address: String) {
         itemDetails.text = address
-        db.updateField(fieldName: db.address, newFieldValue: address)
+        UserDB.updateField(fieldName: UserDB.address, newFieldValue: address)
     }
 }

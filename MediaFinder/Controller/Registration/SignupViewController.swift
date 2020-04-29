@@ -23,7 +23,6 @@ class SignupViewController: UIViewController {
     
     var imagePicker = UIImagePickerController()
     var selectedLocation = ""
-    let database = DB()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +32,8 @@ class SignupViewController: UIViewController {
         setProfileImage()
         textfieldDelegate()
         setNavigationBar()
-        DB.setupDB()
-        database.create()
+        UserDB.setupDB()
+        UserDB.create()
     }
 
     private func setProfileImage(){
@@ -91,7 +90,7 @@ class SignupViewController: UIViewController {
                            isLoggedIn: false)
         print(newUser.email!)
         
-        database.insertUser(user: newUser)
+        UserDB.insertUser(user: newUser)
 
         let signinVC = UIStoryboard(name: Storyboard.registration, bundle: nil).instantiateViewController(identifier: StoryboardID.signIn) as! SigninViewController
         navigationController?.pushViewController(signinVC, animated: true)

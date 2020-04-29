@@ -9,19 +9,20 @@
 import Foundation
 import SQLite
 
-var database: Connection!
 
-struct DB {
 
-    let userTable = Table("users")
-    let id = Expression<Int>("id")
-    let name = Expression<String>("name")
-    let mail = Expression<String>("mail")
-    let phone = Expression<String>("phone")
-    let address = Expression<String>("address")
-    let password = Expression<String>("password")
-    let gender = Expression<String>("gender")
-    let isLoggedIn = Expression<Bool>("isLoggedIn")
+struct UserDB {
+    
+    static var database: Connection!
+    static let userTable = Table("users")
+    static let id = Expression<Int>("id")
+    static let name = Expression<String>("name")
+    static let mail = Expression<String>("mail")
+    static let phone = Expression<String>("phone")
+    static let address = Expression<String>("address")
+    static let password = Expression<String>("password")
+    static let gender = Expression<String>("gender")
+    static let isLoggedIn = Expression<Bool>("isLoggedIn")
     
     static func setupDB(){
         do {
@@ -34,7 +35,7 @@ struct DB {
         }
     }
    
-     func create(){
+     static func create(){
         let createTable = userTable.create (ifNotExists: true){ (table) in
                     table.column(id, primaryKey: true)
                     table.column(mail, unique: true)
@@ -54,7 +55,7 @@ struct DB {
                 }
     }
     
-    func insertUser(user:User){
+    static func insertUser(user:User){
         let insertion = userTable.insert(self.mail <- user.email,
                                          self.name <- user.name,
                                          self.phone <- user.phone,
@@ -70,7 +71,7 @@ struct DB {
         }
     }
     
-    func updateField(fieldName :Expression<String> , newFieldValue :String){
+    static func updateField(fieldName :Expression<String> , newFieldValue :String){
         let userID = self.userTable.filter(self.id == id)
         let updateUserField = userID.update(fieldName <- newFieldValue)
         do {
@@ -81,7 +82,7 @@ struct DB {
         }
     }
     
-    func user(isLoggedIn :Bool){
+    static func user(isLoggedIn :Bool){
         let userMail = self.userTable.filter(self.mail == mail)
         let updateUser = userMail.update(self.isLoggedIn <- isLoggedIn)
         do {
@@ -91,7 +92,7 @@ struct DB {
         }
     }
     
-    func selectAllUsers()->User{
+    static func selectAllUsers()->User{
 //        var allUsers = [User]()
         var newUser = User()
         do {
@@ -111,6 +112,16 @@ struct DB {
             print(error)
         }
         return newUser
+    }
+    
+    static func deleteUserTable(){
+        let table = self.userTable
+        let deleteHistory = table.delete()
+        do {
+            try self.database.run(deleteHistory)
+        } catch {
+            print(error)
+        }
     }
     
 }

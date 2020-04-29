@@ -9,11 +9,11 @@
 import Foundation
 
 struct StoryboardID {
-//    static let map = "MapsViewController"
+    
     static let appleMap = "AppleMapViewController"
     static let signIn = "SigninViewController"
     static let signup = "SignupViewController"
     static let movies = "MovieViewController"
     static let profile = "ProfileViewController"
-    static let detailed = "MediaDetailedViewController"
+    
 }

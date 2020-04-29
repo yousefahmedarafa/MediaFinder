@@ -14,6 +14,7 @@
 		E21E1FEC2447F4A20086C19D /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = E21E1FE82447F4A20086C19D /* loading.json */; };
 		E222E386244C038500FFC22C /* AppleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222E385244C038500FFC22C /* AppleMapViewController.swift */; };
 		E222E388244C03A100FFC22C /* AppleMaps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E222E387244C03A100FFC22C /* AppleMaps.storyboard */; };
+		E24D8EC7245952AB0074533C /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24D8EC6245952AB0074533C /* UITableView.swift */; };
 		E252CE742438E45C0087472D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E252CE732438E45C0087472D /* AppDelegate.swift */; };
 		E252CE762438E45C0087472D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E252CE752438E45C0087472D /* SceneDelegate.swift */; };
 		E252CE7B2438E45C0087472D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E252CE792438E45C0087472D /* Main.storyboard */; };
@@ -39,8 +40,8 @@
 		E28D13582446464800CD9C26 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28D13572446464800CD9C26 /* ProfileViewController.swift */; };
 		E28D135A24464CF100CD9C26 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28D135924464CF100CD9C26 /* ProfileTableViewCell.swift */; };
 		E28D137F24469B4900CD9C26 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28D137E24469B4900CD9C26 /* Profile.swift */; };
-		E2C1FB09244D061900A10E3F /* DB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C1FB08244D061900A10E3F /* DB.swift */; };
-		E2C1FB0B244D154000A10E3F /* MoviesDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C1FB0A244D154000A10E3F /* MoviesDB.swift */; };
+		E2C1FB09244D061900A10E3F /* UserDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C1FB08244D061900A10E3F /* UserDB.swift */; };
+		E2C1FB0B244D154000A10E3F /* MediaDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C1FB0A244D154000A10E3F /* MediaDB.swift */; };
 		E5B6C028CF26866E9D4730B3 /* Pods_MediaFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F32094604D66B8CA2A4867 /* Pods_MediaFinder.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		E21E1FE82447F4A20086C19D /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		E222E385244C038500FFC22C /* AppleMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapViewController.swift; sourceTree = "<group>"; };
 		E222E387244C03A100FFC22C /* AppleMaps.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AppleMaps.storyboard; sourceTree = "<group>"; };
+		E24D8EC6245952AB0074533C /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		E252CE702438E45C0087472D /* MediaFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediaFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E252CE732438E45C0087472D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E252CE752438E45C0087472D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,8 +84,8 @@
 		E28D13572446464800CD9C26 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E28D135924464CF100CD9C26 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		E28D137E24469B4900CD9C26 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
-		E2C1FB08244D061900A10E3F /* DB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DB.swift; sourceTree = "<group>"; };
-		E2C1FB0A244D154000A10E3F /* MoviesDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesDB.swift; sourceTree = "<group>"; };
+		E2C1FB08244D061900A10E3F /* UserDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDB.swift; sourceTree = "<group>"; };
+		E2C1FB0A244D154000A10E3F /* MediaDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaDB.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,8 +228,8 @@
 		E252CEAA2438E5450087472D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				E2C1FB08244D061900A10E3F /* DB.swift */,
-				E2C1FB0A244D154000A10E3F /* MoviesDB.swift */,
+				E2C1FB08244D061900A10E3F /* UserDB.swift */,
+				E2C1FB0A244D154000A10E3F /* MediaDB.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -241,6 +243,7 @@
 				E252CEBA2438E5630087472D /* Colors.swift */,
 				E25F9C872439EA6200004ADA /* Constants.swift */,
 				E25F9C8C2439EC9700004ADA /* Paramters.swift */,
+				E24D8EC6245952AB0074533C /* UITableView.swift */,
 			);
 			path = Utilites;
 			sourceTree = "<group>";
@@ -395,10 +398,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E252CEC12438E5630087472D /* Colors.swift in Sources */,
-				E2C1FB0B244D154000A10E3F /* MoviesDB.swift in Sources */,
+				E2C1FB0B244D154000A10E3F /* MediaDB.swift in Sources */,
 				E252CEA52438E5330087472D /* MovieTableViewCell.swift in Sources */,
 				E28D137F24469B4900CD9C26 /* Profile.swift in Sources */,
 				E252CEA32438E5330087472D /* MovieViewController.swift in Sources */,
+				E24D8EC7245952AB0074533C /* UITableView.swift in Sources */,
 				E25F9C862439E8A600004ADA /* Media.swift in Sources */,
 				E252CEB22438E54E0087472D /* User.swift in Sources */,
 				E222E386244C038500FFC22C /* AppleMapViewController.swift in Sources */,
@@ -406,7 +410,7 @@
 				E252CEBF2438E5630087472D /* Storyboard.swift in Sources */,
 				E252CEA62438E5330087472D /* SigninViewController.swift in Sources */,
 				E252CEA02438E5330087472D /* SignupViewController.swift in Sources */,
-				E2C1FB09244D061900A10E3F /* DB.swift in Sources */,
+				E2C1FB09244D061900A10E3F /* UserDB.swift in Sources */,
 				E252CEC02438E5630087472D /* StoryboardID.swift in Sources */,
 				E252CE762438E45C0087472D /* SceneDelegate.swift in Sources */,
 				E252CEBB2438E5630087472D /* UIView.swift in Sources */,
