@@ -24,5 +24,15 @@ extension UIView {
         self.layer.shadowOpacity = 0.25
         self.clipsToBounds = false
     }
-
+     func shakeAnimation() {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.3
+        animation.repeatCount = 3
+        animation.autoreverses = true
+        animation.isRemovedOnCompletion = true
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: self.center.x - 20, y: self.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + 20, y: self.center.y))
+        self.layer.add(animation, forKey: nil)
+    }
 }

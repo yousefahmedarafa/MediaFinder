@@ -34,14 +34,6 @@ class SigninViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: true)
     }
     
-    private func alertControllerSetup(){
-        let alert = UIAlertController(title: "Error", message: "Invalid Credentials!", preferredStyle: .alert)
-        let doneAction = UIAlertAction(title: "Done", style: .default, handler:{ _ in
-            self.emailTxtField.becomeFirstResponder()})
-        alert.addAction(doneAction)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     @IBAction func logInBtnPressed(_ sender: UIButton) {
         
         let user = UserDB.selectAllUsers()
@@ -53,7 +45,8 @@ class SigninViewController: UIViewController {
                 let moviesVC = UIStoryboard(name: Storyboard.main, bundle: nil).instantiateViewController(withIdentifier: StoryboardID.movies) as! MovieViewController
                 navigationController?.pushViewController(moviesVC, animated: true)
             }else {
-                alertControllerSetup()
+                AlertManager.alertFor(title: "Error", msg: "Invalid Credentials!", VC: self)
+                emailTxtField.becomeFirstResponder()
                 emailTxtField.text = ""
                 passwordTxtField.text = ""
             }

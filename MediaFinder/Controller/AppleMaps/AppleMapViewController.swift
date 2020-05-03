@@ -10,7 +10,6 @@ import UIKit
 import MapKit
 import CoreLocation
 
-
 protocol SendingAddressDelegate {
     func getLocation(address: String)
 }

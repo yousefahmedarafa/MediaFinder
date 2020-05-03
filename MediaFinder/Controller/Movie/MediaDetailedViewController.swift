@@ -46,19 +46,6 @@ class MediaDetailedViewController: AVPlayerViewController {
         imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         imageView.sd_setImage(with: image)
         self.contentOverlayView?.addSubview(imageView)
-        shakeAnimation(imageView)
-
-    }
-    
-    private func shakeAnimation(_ view: UIView) {
-        let animation = CABasicAnimation(keyPath: "position")
-        animation.duration = 0.3
-        animation.repeatCount = 3
-        animation.autoreverses = true
-        animation.isRemovedOnCompletion = true
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
-        animation.fromValue = NSValue(cgPoint: CGPoint(x: view.center.x - 20, y: view.center.y))
-        animation.toValue = NSValue(cgPoint: CGPoint(x: view.center.x + 20, y: view.center.y))
-        view.layer.add(animation, forKey: nil)
+        imageView.shakeAnimation()
     }
 }

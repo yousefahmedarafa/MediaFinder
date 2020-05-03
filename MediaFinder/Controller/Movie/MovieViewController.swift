@@ -88,7 +88,7 @@ class MovieViewController: UIViewController {
                 MediaDB.insertMedia(mediaArr: media)
                 self.hideLoadingView()
                 if self.mediaArr.count == 0 {
-                    self.alertControllerSetupFor(msg: "No Result Found")
+                    AlertManager.alertFor(title: "Sorry", msg: "No Result Found", VC: self)
                 }
                 self.moviesTableView.reloadData()
             }
@@ -106,13 +106,6 @@ class MovieViewController: UIViewController {
         self.loadingView.isHidden = true
         self.loadingwheel.stopAnimating()
         self.loadingwheel.isHidden = true
-    }
-    
-    private func alertControllerSetupFor(msg: String){
-        let alert = UIAlertController(title: "Sorry", message: msg, preferredStyle: .alert)
-        let doneAction = UIAlertAction(title: "Done", style: .default, handler:{ _ in})
-        alert.addAction(doneAction)
-        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func searchBtnPressed(_ sender: UIButton) {
@@ -178,10 +171,6 @@ extension MovieViewController {
         let profileVC = UIStoryboard(name: Storyboard.profile, bundle: nil).instantiateViewController(identifier: StoryboardID.profile) as! ProfileViewController
         navigationController?.pushViewController(profileVC, animated: true)
     }
-    
-    //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    //        view.endEditing(true)
-    //    }
 }
 
 

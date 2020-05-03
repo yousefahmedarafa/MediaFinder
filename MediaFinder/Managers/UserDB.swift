@@ -24,6 +24,7 @@ struct UserDB {
     static let gender = Expression<String>("gender")
     static let isLoggedIn = Expression<Bool>("isLoggedIn")
     
+    
     static func setupDB(){
         do {
             let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)

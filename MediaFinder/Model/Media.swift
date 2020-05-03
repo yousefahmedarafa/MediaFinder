@@ -15,7 +15,6 @@ public enum MediaType: String {
     case tvShow = "tvShow"
 }
 
-
 struct Media: Codable {
     
     var artworkUrl100: String

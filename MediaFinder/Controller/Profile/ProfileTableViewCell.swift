@@ -23,7 +23,6 @@ class ProfileTableViewCell: UITableViewCell {
     var profileData : Profile?
     let db = UserDB()
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         shadowView.dropShadow()
@@ -51,7 +50,7 @@ class ProfileTableViewCell: UITableViewCell {
     }
     
     @IBAction func editBtnPressed(_ sender: UIButton) {
-        print("Edit HERE!!!")
+        
         guard let name = profileData?.name else {return}
         
         if name == "Address" {
@@ -60,10 +59,10 @@ class ProfileTableViewCell: UITableViewCell {
             mapVC.modalPresentationStyle = .fullScreen
             self.window?.rootViewController?.present(mapVC, animated: true, completion: nil)
         }else {
-            alertControllerSetupFor(title: name)
+            alertToUpdate(title: name)
         }
     }
-    private func alertControllerSetupFor(title: String){
+    private func alertToUpdate(title: String){
         
         guard let name = profileData?.name else {return}
         guard let detail = profileData?.detail else {return}
@@ -117,13 +116,14 @@ class ProfileTableViewCell: UITableViewCell {
         hiddenPassword = !hiddenPassword
         if hiddenPassword {
             itemDetails.text = String(password.map { _ in return "*" })
-            passwordBtn.setImage(UIImage(named: "pwEye"), for: .normal)
+            passwordBtn.setImage(UIImage(named: Images.showPassword), for: .normal)
         }else{
             itemDetails.text = password
-            passwordBtn.setImage(UIImage(named: "hidePassword"), for: .normal)
+            passwordBtn.setImage(UIImage(named: Images.hidePassword), for: .normal)
         }
     }
 }
+
 extension ProfileTableViewCell : SendingAddressDelegate {
     func getLocation(address: String) {
         itemDetails.text = address

@@ -37,6 +37,7 @@ class ProfileViewController: UIViewController{
         UserDB.setupDB()
         imagePicker.delegate = self
     }
+    
     @IBAction func deleteProfileBtnPressed(_ sender: UIButton) {
         
         UserDB.deleteUserTable()
@@ -53,17 +54,8 @@ class ProfileViewController: UIViewController{
     
 }
 extension ProfileViewController {
-    func showAlert(_: ProfileTableViewCell) {
-    }
 
-    func showAlert(sender:ProfileTableViewCell) {
-        let alert = UIAlertController(title: "Error", message: "msg", preferredStyle: .alert)
-        let doneAction = UIAlertAction(title: "Done", style: .default, handler:{ _ in})
-        alert.addAction(doneAction)
-        self.present(alert, animated: true, completion: nil)
-    }
-
-    func setdata(){
+    private func setdata(){
         
         receivedUser = UserDB.selectAllUsers()
         guard let name = receivedUser.name else {return}
@@ -74,18 +66,20 @@ extension ProfileViewController {
         let gender = receivedUser.gender.rawValue
 
         if gender == Gender.Male.rawValue {
-            deleteUserBtn.setImage(UIImage(named: "deleteMaleUser"), for: .normal)
+            deleteUserBtn.setImage(UIImage(named: Images.deleteMaleUser), for: .normal)
         }else{
-            deleteUserBtn.setImage(UIImage(named: "deleteFemaleUser"), for: .normal)
+            deleteUserBtn.setImage(UIImage(named: Images.deleteFemaleUser), for: .normal)
         }
+        
         profileData += [
-            Profile(name: "Name", detail: name, itemImg: "name"),
-            Profile(name: "Mail", detail: email, itemImg: "mail"),
-            Profile(name: "Address", detail: address, itemImg: "address"),
-            Profile(name: "Phone", detail: phone, itemImg: "phone"),
-            Profile(name: "Password", detail: password, itemImg: "pw"),
+            Profile(name: "Name", detail: name, itemImg: Images.name),
+            Profile(name: "Mail", detail: email, itemImg: Images.mail),
+            Profile(name: "Address", detail: address, itemImg: Images.address),
+            Profile(name: "Phone", detail: phone, itemImg: Images.phone),
+            Profile(name: "Password", detail: password, itemImg: Images.pw),
             ]
     }
+    
     private func setProfileImage(){
        let roundedImage = profileImage.frame.height/2
         profileImage.roundedCorner(radius: roundedImage)
